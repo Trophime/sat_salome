@@ -76,7 +76,12 @@ CMAKE_OPTIONS="${CMAKE_OPTIONS} -DVTK_WRAP_PYTHON:BOOL=ON"
 if [ "${PYTHON_ROOT_DIR}" == "/usr" ]
 then
     CMAKE_OPTIONS="${CMAKE_OPTIONS} -DPython3_INCLUDE_DIR:STRING=${PYTHON_ROOT_DIR}/include/python${PYTHON_VERSION}m"
-    CMAKE_OPTIONS="${CMAKE_OPTIONS} -DPython3_LIBRARY:STRING=${PYTHON_ROOT_DIR}/lib64/libpython${PYTHON_VERSION}m.so"
+    if [ -z "$(hostnamectl | grep buster)" ]
+    then
+        CMAKE_OPTIONS="${CMAKE_OPTIONS} -DPython3_LIBRARY:STRING=${PYTHON_ROOT_DIR}/lib64/libpython${PYTHON_VERSION}m.so"
+    else
+        CMAKE_OPTIONS="${CMAKE_OPTIONS} -DPython3_LIBRARY:STRING=${PYTHON_ROOT_DIR}/lib/x86_64-linux-gnu/libpython${PYTHON_VERSION}m.so"
+    fi
 else
     CMAKE_OPTIONS="${CMAKE_OPTIONS} -DPython3_INCLUDE_DIR:STRING=${PYTHON_ROOT_DIR}/include/python${PYTHON_VERSION}"
     CMAKE_OPTIONS="${CMAKE_OPTIONS} -DPython3_LIBRARY:STRING=${PYTHON_ROOT_DIR}/lib/libpython${PYTHON_VERSION}.so"
@@ -137,7 +142,12 @@ CMAKE_OPTIONS="${CMAKE_OPTIONS} -DVTK_MODULE_USE_EXTERNAL_ParaView_cgns:BOOL=ON"
 CMAKE_OPTIONS="${CMAKE_OPTIONS} -DCGNS_INCLUDE_DIR:PATH=${CGNS_ROOT_DIR}/include"
 if [ "$CGNS_ROOT_DIR" == "/usr" ]
 then
-    CMAKE_OPTIONS="${CMAKE_OPTIONS} -DCGNS_LIBRARY:PATH=${CGNS_ROOT_DIR}/lib64/libcgns.so"
+    if [ -z "$(hostnamectl | grep buster)" ]
+    then
+        CMAKE_OPTIONS="${CMAKE_OPTIONS} -DCGNS_LIBRARY:PATH=${CGNS_ROOT_DIR}/lib64/libcgns.so"
+    else
+        CMAKE_OPTIONS="${CMAKE_OPTIONS} -DCGNS_LIBRARY:PATH=${CGNS_ROOT_DIR}/lib/x86_64-linux-gnu/libcgns.so"
+    fi
 else
     CMAKE_OPTIONS="${CMAKE_OPTIONS} -DCGNS_LIBRARY:PATH=${CGNS_ROOT_DIR}/lib/libcgns.so"
 fi
@@ -164,7 +174,12 @@ then
     CMAKE_OPTIONS="${CMAKE_OPTIONS} -DLIBXML2_INCLUDE_DIR:STRING=${LIBXML2_ROOT_DIR}/include/libxml2"
     if [ "${LIBXML2_ROOT_DIR}" == "/usr" ]
     then
-        CMAKE_OPTIONS="${CMAKE_OPTIONS} -DLIBXML2_LIBRARIES:STRING=${LIBXML2_ROOT_DIR}/lib64/libxml2.so"
+        if [ -z "$(hostnamectl | grep buster)" ]
+        then
+            CMAKE_OPTIONS="${CMAKE_OPTIONS} -DLIBXML2_LIBRARIES:STRING=${LIBXML2_ROOT_DIR}/lib64/libxml2.so"
+        else
+            CMAKE_OPTIONS="${CMAKE_OPTIONS} -DLIBXML2_LIBRARIES:STRING=${LIBXML2_ROOT_DIR}/lib/x86_64-linux-gnu/libxml2.so"
+        fi
     else
         CMAKE_OPTIONS="${CMAKE_OPTIONS} -DLIBXML2_LIBRARIES:STRING=${LIBXML2_ROOT_DIR}/lib/libxml2.so"
     fi

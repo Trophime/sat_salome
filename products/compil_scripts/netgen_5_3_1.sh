@@ -61,9 +61,16 @@ echo "*** configure"
 BFLAG="-m64"
 OLEVEL="-O2"
 
+TCL_INCLUDE_DIR=${TCLHOME}/include
 if [ "${TCLHOME}" == '/usr' ]
 then
-    TCL_LIB_DIR=${TCLHOME}/lib64
+    if [ -z "$(hostnamectl | grep buster)" ]
+    then
+        TCL_LIB_DIR=${TCLHOME}/lib64
+    else
+        TCL_LIB_DIR=${TCLHOME}/lib
+        TCL_INCLUDE_DIR=${TCLHOME}/include/tcl8.6
+    fi
 else
     TCL_LIB_DIR=${TCLHOME}/lib
 fi
@@ -72,14 +79,14 @@ echo ./configure --prefix=${PRODUCT_INSTALL} \
     --with-tcl=${TCL_LIB_DIR} \
     --with-tk=${TCL_LIB_DIR} \
     --disable-openmp \
-    --with-tclinclude=${TCLHOME}/include \
+    --with-tclinclude=${TCL_INCLUDE_DIR} \
     CXXFLAGS="-I${CASROOT}/include/opencascade ${OLEVEL} ${BFLAG} -std=c++0x"
 ./configure --prefix=${PRODUCT_INSTALL} \
     --with-occ=${CASROOT} \
     --with-tcl=${TCL_LIB_DIR} \
     --with-tk=${TCL_LIB_DIR} \
     --disable-openmp \
-    --with-tclinclude=${TCLHOME}/include \
+    --with-tclinclude=${TCL_INCLUDE_DIR} \
     CXXFLAGS="-I${CASROOT}/include/opencascade ${OLEVEL} ${BFLAG} -std=c++0x" #-std=gnu++11" #-std=c++11 -std=c++0x"
     
 if [ $? -ne 0 ]
