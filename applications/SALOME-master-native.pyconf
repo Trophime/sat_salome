@@ -31,7 +31,9 @@ APPLICATION :
         boost : 'native'
         CAS : 'CR740-SALOME-PATCH'
         certifi : 'native'
-        cgns : 'native'
+        # Standalone native cgns works well. Unfortunately, it's directly linked to native hdf which uses a higher version than us.
+        # Rollback to embedded version to avoid versions mismatch between both of them (see imp_1538_cgns_export_import.py)
+        cgns : '3.3.1'
         chardet : 'native'
         click : 'native'
         cmake : 'native'
@@ -172,14 +174,20 @@ APPLICATION :
         single_install_dir : "yes"
     }
 }
-#__overwrite__ :
-#[
-#   {
-#      # Overwrite dedicated to older distributions for a further native use
-#      # (Some system packages are missing for now on CentOS 8)
-#      __condition__ : "VARS.dist in ['FD32', 'DB10']"
-#      'APPLICATION.products.omniORB' : 'native'
-#      'APPLICATION.products.omniORBpy' : 'native'
-#   }
-#]
+__overwrite__ :
+[
+   {
+      # FD32 is the first to use native opencv4 version (4.2.0) : FindOpenCV.cmake fails (GEOM)
+      # Associated library path is found through cv.h header which has been removed
+      # (cf. release note of 2.2 version : use imgproc/imgproc.hpp instead - actually included too)
+      __condition__ : "VARS.dist in ['FD32']"
+      'APPLICATION.products.opencv' : '3.2.0'
+   }
+   {
+      # At least on DB10 (UB20 uses the same path...), ParaView fails to find xmlpatterns executable
+      # ParaViewClient.cmake try to find it from Qt5_DIR, going back from it in filesystem (hardcoded)
+      __condition__ : "VARS.dist in ['DB10', 'UB20']"
+      'PRODUCTS.ParaView.version_5_8_0.patches' : ['ParaViewClient_native.patch']
+   }
+]
 
