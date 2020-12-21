@@ -189,9 +189,11 @@ __overwrite__ :
    }
    {
       # At least on DB10 (UB20 uses the same path...), ParaView fails to find xmlpatterns executable
-      # ParaViewClient.cmake try to find it from Qt5_DIR, going back from it in filesystem (hardcoded)
+      # ParaViewClient.cmake try to find it from Qt5_DIR, going back from it in filesystem (hardcoded).
+      # The standard patch is also needed to be able to build PARAVIS (same kind of issue).
       __condition__ : "VARS.dist in ['DB10', 'UB20']"
-      'PRODUCTS.ParaView.version_5_8_0.patches' : ['ParaViewClient_native.patch']
+      'PRODUCTS.ParaView.version_5_8_0.patches' : ['paraview.0003-ParaViewClient.patch',
+                                                   'paraview.0003-ParaViewClient_native.patch']
    }
 ]
 
