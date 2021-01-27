@@ -6,7 +6,7 @@ default :
     get_source : "archive"
     system_info :
     {
-        rpm : []
+        rpm : ["python3-sphinx-intl"]
         rpm_dev : []
         apt : ["sphinx-intl"]
         apt_dev : []

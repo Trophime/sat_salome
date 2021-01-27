@@ -195,6 +195,7 @@ __overwrite__ :
       # To avoid its missing (system_info pyconf key doesn't handle this use case), we embed it.
       __condition__ : "VARS.dist in ['CO8']"
       'APPLICATION.products.sphinxintl' : '0.9.10'
+      'PRODUCTS.sphinxintl.default.properties.pip' : "no"
    }
 ]
 
