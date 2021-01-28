@@ -183,7 +183,7 @@ __overwrite__ :
       # FD32 is the first to use native opencv4 version (4.2.0) : FindOpenCV.cmake fails (GEOM)
       # Associated library path is found through cv.h header which has been removed
       # (cf. release note of 2.2 version : use imgproc/imgproc.hpp instead - actually included too)
-      __condition__ : "VARS.dist in ['FD32']"
+      __condition__ : "VARS.dist in ['FD32', 'UB20.04']"
       'APPLICATION.products.opencv' : '3.2.0'
    }
    {
@@ -201,5 +201,10 @@ __overwrite__ :
       'APPLICATION.products.sphinxintl' : '0.9.10'
       'PRODUCTS.sphinxintl.default.properties.pip' : "no"
    }
+   {
+      # boost >= 1.70.0 use a new config mode which occurs compliant issue with compilation flags (GUI)
+      # Before fixing it, use embedded version, aligned on W10 (higher one)
+      __condition__ : "VARS.dist in ['UB20.04']"
+      'APPLICATION.products.boost' : '1.67.0'
 ]
 
