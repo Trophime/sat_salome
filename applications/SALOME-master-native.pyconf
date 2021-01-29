@@ -202,5 +202,6 @@ __overwrite__ :
       # Before fixing it, use embedded version, aligned on W10 (higher one)
       __condition__ : "VARS.dist in ['UB20.04']"
       'APPLICATION.products.boost' : '1.67.0'
+   }
 ]
 
