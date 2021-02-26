@@ -27,6 +27,18 @@ default :
     }
 }
 
+version_5_15_3 :
+{
+    compil_script :  "PyQt-5.15" + $VARS.scriptExtension
+}
+
+version_5_12_3 :
+{
+    name : "PyQt"
+    compil_script :  "PyQt-5.12" + $VARS.scriptExtension
+}
+
+
 version_5_11_3 :
 {
     compil_script :  "PyQt-5.11" + $VARS.scriptExtension
