@@ -1,0 +1,175 @@
+diff --git a/src/PVGUI/PVGUI_Module.cxx b/src/PVGUI/PVGUI_Module.cxx
+index 08fc02d..a472ce0 100644
+--- a/src/PVGUI/PVGUI_Module.cxx
++++ b/src/PVGUI/PVGUI_Module.cxx
+@@ -798,7 +798,7 @@ QString PVGUI_Module::getTraceString()
+ 
+   vtkSMTrace* tracer = vtkSMTrace::GetActiveTracer();
+   if ( tracer ) {
+-    traceString = tracer->GetCurrentTrace();
++    traceString = tracer->GetCurrentTrace().c_str();
+     // 'import pvsimple' is necessary to fix the first call to DisableFirstRenderCamera in the paraview trace
+     // 'ShowParaviewView()' ensure there is an opened viewing window (otherwise SEGFAULT!)
+     traceString = "import pvsimple" + end_line +
+diff --git a/src/Plugins/JSONReader/plugin/JSONReaderModule/vtkJSONReader.cxx b/src/Plugins/JSONReader/plugin/JSONReaderModule/vtkJSONReader.cxx
+index ff72f76..082b322 100644
+--- a/src/Plugins/JSONReader/plugin/JSONReaderModule/vtkJSONReader.cxx
++++ b/src/Plugins/JSONReader/plugin/JSONReaderModule/vtkJSONReader.cxx
+@@ -34,7 +34,7 @@
+ 
+ #include <stdexcept>
+ #include <sstream>
+-
++#include <fstream>
+ // Key words
+ #define MD  "_metadata"
+ #define CMT "_comment"
+@@ -183,7 +183,7 @@ int vtkJSONReader::CanParseFile(const char *fname, Json::Value &root)
+     return 0;
+   }
+ 
+-  ifstream file;
++  std::ifstream file;
+   std::ostringstream oss;
+   bool parsedSuccess = true;
+   Json::Reader reader;
+diff --git a/src/Plugins/MEDReader/plugin/MEDLoaderForPV/MEDFileFieldRepresentationTree.cxx b/src/Plugins/MEDReader/plugin/MEDLoaderForPV/MEDFileFieldRepresentationTree.cxx
+index 61edea6..6b1857b 100644
+--- a/src/Plugins/MEDReader/plugin/MEDLoaderForPV/MEDFileFieldRepresentationTree.cxx
++++ b/src/Plugins/MEDReader/plugin/MEDLoaderForPV/MEDFileFieldRepresentationTree.cxx
+@@ -43,7 +43,7 @@
+ #include "vtkInformationQuadratureSchemeDefinitionVectorKey.h"
+ #include "vtkInformationIntegerKey.h"
+ #include "vtkInformation.h"
+-#include "vtkDataArrayTemplate.h"
++#include "vtkAOSDataArrayTemplate.h"
+ #include "vtkIdTypeArray.h"
+ #include "vtkDoubleArray.h"
+ #include "vtkIntArray.h"
+@@ -118,7 +118,7 @@ vtkIdTypeArray *ELGACmp::isExisting(const std::vector<std::string>& locsReallyUs
+ template<class T>
+ vtkIdTypeArray *ELGACmp::createNew(const MEDCoupling::MEDFileFieldGlobsReal *globs, const std::vector<std::string>& locsReallyUsed, vtkDataArray *vtkd, vtkDataSet *ds, ExportedTinyInfo *internalInfo) const
+ {
+-  const int VTK_DATA_ARRAY_DELETE=vtkDataArrayTemplate<T>::VTK_DATA_ARRAY_DELETE;
++  const int VTK_DATA_ARRAY_DELETE=vtkAOSDataArrayTemplate<T>::VTK_DATA_ARRAY_DELETE;
+   std::vector< std::vector<std::string> > locNames(_loc_names);
+   std::vector<vtkIdTypeArray *> elgas(_elgas);
+   std::vector< std::pair< vtkQuadratureSchemeDefinition *, unsigned char > > defs;
+@@ -263,9 +263,9 @@ template<class T>
+ void AssignDataPointerToVTK(typename MEDFileVTKTraits<T>::VtkType *vtkTab, typename MEDFileVTKTraits<T>::MCType *mcTab, bool noCpyNumNodes)
+ {
+   if(noCpyNumNodes)
+-    vtkTab->SetArray(mcTab->getPointer(),mcTab->getNbOfElems(),1,vtkDataArrayTemplate<T>::VTK_DATA_ARRAY_FREE);
++    vtkTab->SetArray(mcTab->getPointer(),mcTab->getNbOfElems(),1,vtkAOSDataArrayTemplate<T>::VTK_DATA_ARRAY_FREE);
+  else
+-   { vtkTab->SetArray(mcTab->getPointer(),mcTab->getNbOfElems(),0,vtkDataArrayTemplate<T>::VTK_DATA_ARRAY_FREE); mcTab->accessToMemArray().setSpecificDeallocator(0); }
++   { vtkTab->SetArray(mcTab->getPointer(),mcTab->getNbOfElems(),0,vtkAOSDataArrayTemplate<T>::VTK_DATA_ARRAY_FREE); mcTab->accessToMemArray().setSpecificDeallocator(0); }
+ }
+ 
+ // here copy is always assumed.
+@@ -291,7 +291,7 @@ void AssignToFieldData(DataArray *vPtr, const MEDTimeReq *tr, vtkFieldData *att,
+                        const std::vector<TypeOfField>& discs, const ELGACmp& elgaCmp, const MEDCoupling::MEDFileFieldGlobsReal *globs,
+                        MEDFileAnyTypeField1TS *f1ts, vtkDataSet *ds, ExportedTinyInfo *internalInfo)
+ {
+-  const int VTK_DATA_ARRAY_DELETE=vtkDataArrayTemplate<T>::VTK_DATA_ARRAY_DELETE;
++  const int VTK_DATA_ARRAY_DELETE=vtkAOSDataArrayTemplate<T>::VTK_DATA_ARRAY_DELETE;
+   typename MEDFileVTKTraits<T>::MCType *vi(static_cast<typename MEDFileVTKTraits<T>::MCType *>(vPtr));
+   typename MEDFileVTKTraits<T>::VtkType *vtkd(MEDFileVTKTraits<T>::VtkType::New());
+   vtkd->SetNumberOfComponents((int)vi->getNumberOfComponents());
+diff --git a/src/Plugins/MEDReader/plugin/MEDLoaderForPV/vtkGenerateVectors.cxx b/src/Plugins/MEDReader/plugin/MEDLoaderForPV/vtkGenerateVectors.cxx
+index 56cc316..53f2f4c 100644
+--- a/src/Plugins/MEDReader/plugin/MEDLoaderForPV/vtkGenerateVectors.cxx
++++ b/src/Plugins/MEDReader/plugin/MEDLoaderForPV/vtkGenerateVectors.cxx
+@@ -19,7 +19,7 @@
+ // Author : Anthony Geay
+ 
+ #include "vtkGenerateVectors.h"
+-#include "vtkDataArrayTemplate.h"
++#include "vtkAOSDataArrayTemplate.h"
+ #include "vtkDoubleArray.h"
+ #include "vtkInformation.h"
+ #include "vtkUnstructuredGrid.h"
+@@ -83,7 +83,7 @@ void vtkGenerateVectors::Operate(vtkFieldData *fd)
+ 
+ vtkDoubleArray *vtkGenerateVectors::Operate2Compo(vtkDoubleArray *oldArr)
+ {
+-  const int VTK_DATA_ARRAY_FREE=vtkDataArrayTemplate<double>::VTK_DATA_ARRAY_FREE;
++  const int VTK_DATA_ARRAY_FREE=vtkAOSDataArrayTemplate<double>::VTK_DATA_ARRAY_FREE;
+   vtkDoubleArray *ret(vtkDoubleArray::New());
+   vtkIdType nbOfTuples(oldArr->GetNumberOfTuples());
+   const double *inPt(oldArr->GetPointer(0));
+@@ -106,7 +106,7 @@ vtkDoubleArray *vtkGenerateVectors::Operate2Compo(vtkDoubleArray *oldArr)
+ 
+ vtkDoubleArray *vtkGenerateVectors::OperateMoreThan3Compo(vtkDoubleArray *oldArr)
+ {
+-  const int VTK_DATA_ARRAY_FREE=vtkDataArrayTemplate<double>::VTK_DATA_ARRAY_FREE;
++  const int VTK_DATA_ARRAY_FREE=vtkAOSDataArrayTemplate<double>::VTK_DATA_ARRAY_FREE;
+   vtkDoubleArray *ret(vtkDoubleArray::New());
+   int nbOfCompo(oldArr->GetNumberOfComponents());
+   vtkIdType nbOfTuples(oldArr->GetNumberOfTuples());
+diff --git a/src/Plugins/MEDReader/plugin/MEDReaderIO/vtkExtractCellType.cxx b/src/Plugins/MEDReader/plugin/MEDReaderIO/vtkExtractCellType.cxx
+index bb3fc7c..03a0b8b 100644
+--- a/src/Plugins/MEDReader/plugin/MEDReaderIO/vtkExtractCellType.cxx
++++ b/src/Plugins/MEDReader/plugin/MEDReaderIO/vtkExtractCellType.cxx
+@@ -23,7 +23,7 @@
+ #include "MEDFileFieldOverView.hxx"
+ 
+ #include "vtkAdjacentVertexIterator.h"
+-#include "vtkDataArrayTemplate.h"
++#include "vtkAOSDataArrayTemplate.h"
+ #include "vtkIntArray.h"
+ #include "vtkCellData.h"
+ #include "vtkPointData.h"
+@@ -371,7 +371,7 @@ int vtkExtractCellType::RequestInformation(vtkInformation * /*request*/, vtkInfo
+ 
+ vtkDataSet *FilterFamilies(vtkDataSet *input, const std::vector<int>& idsToKeep, bool insideOut)
+ {
+-  const int VTK_DATA_ARRAY_DELETE=vtkDataArrayTemplate<double>::VTK_DATA_ARRAY_DELETE;
++  const int VTK_DATA_ARRAY_DELETE=vtkAOSDataArrayTemplate<double>::VTK_DATA_ARRAY_DELETE;
+   const char ZE_SELECTION_ARR_NAME[]="@@ZeSelection@@";
+   vtkDataSet *output(input->NewInstance());
+   output->ShallowCopy(input);
+diff --git a/src/Plugins/MEDReader/plugin/MEDReaderIO/vtkExtractGroup.cxx b/src/Plugins/MEDReader/plugin/MEDReaderIO/vtkExtractGroup.cxx
+index 5996b95..40a76ea 100644
+--- a/src/Plugins/MEDReader/plugin/MEDReaderIO/vtkExtractGroup.cxx
++++ b/src/Plugins/MEDReader/plugin/MEDReaderIO/vtkExtractGroup.cxx
+@@ -25,7 +25,7 @@
+ #include "VTKMEDTraits.hxx"
+ 
+ #include "vtkAdjacentVertexIterator.h"
+-#include "vtkDataArrayTemplate.h"
++#include "vtkAOSDataArrayTemplate.h"
+ #include "vtkIntArray.h"
+ #include "vtkLongArray.h"
+ #ifdef WIN32
+@@ -135,7 +135,7 @@ vtkDataSet *FilterFamilies(vtkSmartPointer<vtkThreshold>& thres,
+                            vtkDataSet *input, const std::set<int>& idsToKeep, bool insideOut, const char *arrNameOfFamilyField,
+                            const char *associationForThreshold, bool& catchAll, bool& catchSmth)
+ {
+-  const int VTK_DATA_ARRAY_DELETE=vtkDataArrayTemplate<double>::VTK_DATA_ARRAY_DELETE;
++  const int VTK_DATA_ARRAY_DELETE=vtkAOSDataArrayTemplate<double>::VTK_DATA_ARRAY_DELETE;
+   const char ZE_SELECTION_ARR_NAME[]="@@ZeSelection@@";
+   vtkDataSet *output(input->NewInstance());
+   output->ShallowCopy(input);
+diff --git a/src/Plugins/MEDReader/plugin/MEDReaderIO/vtkInformationGaussDoubleVectorKey.h b/src/Plugins/MEDReader/plugin/MEDReaderIO/vtkInformationGaussDoubleVectorKey.h
+index 47429cd..13cb054 100644
+--- a/src/Plugins/MEDReader/plugin/MEDReaderIO/vtkInformationGaussDoubleVectorKey.h
++++ b/src/Plugins/MEDReader/plugin/MEDReaderIO/vtkInformationGaussDoubleVectorKey.h
+@@ -26,7 +26,7 @@ class VTK_EXPORT vtkInformationGaussDoubleVectorKey : public vtkInformationDoubl
+ {
+ public:
+   vtkTypeMacro(vtkInformationGaussDoubleVectorKey, vtkInformationDoubleVectorKey)
+-  void PrintSelf(ostream& /*os*/, vtkIndent /*indent*/) VTK_OVERRIDE{}
++    void PrintSelf(ostream& /*os*/, vtkIndent /*indent*/) override {};
+ 
+   vtkInformationGaussDoubleVectorKey(const char* name, const char* location,
+     int length = -1) : vtkInformationDoubleVectorKey(name, location, length) { }
+@@ -48,7 +48,7 @@ public:
+   */
+   void CopyDefaultInformation(vtkInformation* /*request*/,
+     vtkInformation* fromInfo,
+-    vtkInformation* toInfo) VTK_OVERRIDE
++    vtkInformation* toInfo) override
+   {
+     this->ShallowCopy(fromInfo, toInfo);
+   }

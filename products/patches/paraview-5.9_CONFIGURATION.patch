@@ -1,0 +1,25 @@
+diff --git a/cmake/FindSalomeTBB.cmake b/cmake/FindSalomeTBB.cmake
+index 6e41f63..e5aa8d5 100644
+--- a/cmake/FindSalomeTBB.cmake
++++ b/cmake/FindSalomeTBB.cmake
+@@ -20,9 +20,10 @@
+ IF(NOT DEFINED MACHINE_IS_64)
+   MESSAGE(FATAL_ERROR "Developer error -> SalomeSetupPlatform macros should be inclided before find_package(SalomeTBB) !")
+ ENDIF()
+-
+-SALOME_FIND_PACKAGE_AND_DETECT_CONFLICTS(TBB TBB_INCLUDE_DIRS 1)
+-
++Find_package(TBB)
++#SALOME_FIND_PACKAGE_AND_DETECT_CONFLICTS(TBB TBB_INCLUDE_DIRS 1)
++MESSAGE(WARNING "TBB_INCLUDE_DIRS = ${TBB_INCLUDE_DIRS}")
++MESSAGE(WARNING "TBB_LIBRARIES = ${TBB_LIBRARIES}")
+ IF(TBB_INCLUDE_DIRS AND TBB_LIBRARIES)
+   # No config mode 
+   MARK_AS_ADVANCED(TBB_INCLUDE_DIRS TBB_LIBRARIES)
+@@ -57,4 +58,4 @@ IF(TBB_FOUND)
+     SALOME_ACCUMULATE_HEADERS(_tbb_inc)
+     SALOME_ACCUMULATE_ENVIRONMENT(LD_LIBRARY_PATH ${_tbb_lib})
+   ENDIF()
+-ENDIF()
+\ No newline at end of file
++ENDIF()

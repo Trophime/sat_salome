@@ -177,3 +177,14 @@ APPLICATION :
         single_install_dir : "yes"
     }
 }
+__overwrite__ :
+[
+  {
+   # 
+    __condition__ : "VARS.dist in ['CO7']"
+    'PRODUCTS.CONFIGURATION.default.patches' : ['paraview-5.9_CONFIGURATION.patch']
+    'PRODUCTS.GUI.default.patches'           : ['paraview-5.9_GUI.patch']
+    'PRODUCTS.PARAVIS.default.patches'       : ['paraview-5.9_PARAVIS.patch']
+    'PRODUCTS.PARAVISADDONS.default.patches' : ['paraview-5.9_PARAVISADDONS.patch']
+  }
+]
