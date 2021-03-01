@@ -1,0 +1,121 @@
+diff --git a/src/GraphicsView/GraphicsView_ViewFrame.cxx b/src/GraphicsView/GraphicsView_ViewFrame.cxx
+index f075f23..1ba3cb7 100644
+--- a/src/GraphicsView/GraphicsView_ViewFrame.cxx
++++ b/src/GraphicsView/GraphicsView_ViewFrame.cxx
+@@ -42,7 +42,7 @@
+ #include <QMouseEvent>
+ #include <QString>
+ #include <QWheelEvent>
+-
++#include <QPainterPath>
+ //=======================================================================
+ // Name    : GraphicsView_ViewFrame
+ // Purpose : Constructor
+diff --git a/src/GraphicsView/GraphicsView_ViewFrame.h b/src/GraphicsView/GraphicsView_ViewFrame.h
+index a8507d3..ffa7c35 100644
+--- a/src/GraphicsView/GraphicsView_ViewFrame.h
++++ b/src/GraphicsView/GraphicsView_ViewFrame.h
+@@ -29,7 +29,7 @@ class QGraphicsSceneMouseEvent;
+ class QGraphicsSceneWheelEvent;
+ 
+ class QAction;
+-
++class QPainterPath;
+ class SUIT_Desktop;
+ 
+ class GraphicsView_Viewer;
+diff --git a/src/PVViewer/PVViewer_GUIElements.cxx b/src/PVViewer/PVViewer_GUIElements.cxx
+index 384d362..5d9d4f5 100644
+--- a/src/PVViewer/PVViewer_GUIElements.cxx
++++ b/src/PVViewer/PVViewer_GUIElements.cxx
+@@ -143,7 +143,9 @@ void PVViewer_GUIElements::buildPVWidgets()
+     // Catalyst Menu
+     if (!catalystMenu) {
+       catalystMenu = new QMenu(0);
+-#if PARAVIEW_VERSION_MAJOR==5 && PARAVIEW_VERSION_MINOR>=6
++#if PARAVIEW_VERSION_MAJOR==5 && PARAVIEW_VERSION_MINOR>=9
++      pqParaViewMenuBuilders::buildCatalystMenu(*catalystMenu);
++#elif PARAVIEW_VERSION_MAJOR==5 && PARAVIEW_VERSION_MINOR>=6
+       pqParaViewMenuBuilders::buildCatalystMenu(*catalystMenu, myDesktop);
+ #else
+       pqParaViewMenuBuilders::buildCatalystMenu(*catalystMenu);
+diff --git a/src/SALOME_PYQT/SalomePyQt/SalomePyQt.sip b/src/SALOME_PYQT/SalomePyQt/SalomePyQt.sip
+index bc30e34..05dff3e 100644
+--- a/src/SALOME_PYQT/SalomePyQt/SalomePyQt.sip
++++ b/src/SALOME_PYQT/SalomePyQt/SalomePyQt.sip
+@@ -130,9 +130,9 @@ class QtxAction : QWidgetAction
+ 
+ %ConvertToSubClassCode
+     if ( qobject_cast<QtxAction*>( sipCpp ) )
+-      sipClass = sipClass_QtxAction;
++      sipType = sipType_QtxAction;
+     else
+-      sipClass = NULL;
++      sipType = NULL;
+ %End
+ 
+ public:
+@@ -153,9 +153,9 @@ class QtxActionSet : QtxAction
+ 
+ %ConvertToSubClassCode
+     if ( qobject_cast<QtxActionSet*>( sipCpp ) )
+-      sipClass = sipClass_QtxActionSet;
++      sipType = sipType_QtxActionSet;
+     else
+-      sipClass = NULL;
++      sipType = NULL;
+ %End
+ 
+ public:
+@@ -192,9 +192,9 @@ class QtxActionGroup : QtxActionSet
+ 
+ %ConvertToSubClassCode
+     if ( qobject_cast<QtxActionGroup*>( sipCpp ) )
+-      sipClass = sipClass_QtxActionGroup;
++      sipType = sipType_QtxActionGroup;
+     else
+-      sipClass = NULL;
++      sipType = NULL;
+ %End
+ 
+ public:
+@@ -226,9 +226,9 @@ class QtxTreeView : public QTreeView
+ 
+ %ConvertToSubClassCode
+     if ( qobject_cast<QtxTreeView*>( sipCpp ) )
+-      sipClass = sipClass_QtxTreeView;
++      sipType = sipType_QtxTreeView;
+     else
+-      sipClass = NULL;
++      sipType = NULL;
+ %End
+ 
+ public:
+@@ -252,9 +252,9 @@ class UserDefinedContent : public QWidget
+ 
+ %ConvertToSubClassCode
+     if ( qobject_cast<UserDefinedContent*>( sipCpp ) )
+-      sipClass = sipClass_UserDefinedContent;
++      sipType = sipType_UserDefinedContent;
+     else
+-      sipClass = NULL;
++      sipType = NULL;
+ %End
+ 
+ public:
+diff --git a/src/SALOME_PYQT/SalomePyQt/SalomePyQt_Plot2d.sip b/src/SALOME_PYQT/SalomePyQt/SalomePyQt_Plot2d.sip
+index 66e2af5..eb0962e 100644
+--- a/src/SALOME_PYQT/SalomePyQt/SalomePyQt_Plot2d.sip
++++ b/src/SALOME_PYQT/SalomePyQt/SalomePyQt_Plot2d.sip
+@@ -55,9 +55,9 @@ class Plot2d_Curve
+ 
+ %ConvertToSubClassCode
+     if ( dynamic_cast<Plot2d_Curve*>( sipCpp ) )
+-      sipClass = sipClass_Plot2d_Curve;
++      sipType = sipType_Plot2d_Curve;
+     else
+-      sipClass = NULL;
++      sipType = NULL;
+ %End
+ 
+ public:
