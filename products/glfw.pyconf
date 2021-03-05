@@ -7,7 +7,7 @@ default :
         rpm : []
         rpm_dev : ["glfw-devel"]
         apt : []
-        apt_dev : ["glfw-dev"]
+        apt_dev : ["libglfw3-dev"]
     }
     depend : []
     properties :
