@@ -29,7 +29,7 @@ APPLICATION :
         alabaster : 'native'
         Babel : 'native'
         boost : 'native'
-        CAS : 'CR740-SALOME-PATCH'
+        CAS : 'V7_5_0'
         certifi : 'native'
         # Standalone native cgns works well. Unfortunately, it's directly linked to native hdf which uses a higher version than us.
         # Rollback to embedded version to avoid versions mismatch between both of them (see imp_1538_cgns_export_import.py)
@@ -80,7 +80,6 @@ APPLICATION :
         Pillow : 'native'
         # 'native' not exists : freeCAD part but not delivered with it from package handler
         planegcs : '0.18-3cb6890'
-        pockets : 'native'
         Pygments : 'native'
         pyparsing : 'native'
         PyQt : 'native'
@@ -97,7 +96,6 @@ APPLICATION :
         six : 'native'
         snowballstemmer : 'native'
         Sphinx : 'native'
-        sphinxcontrib_napoleon : 'native'
         sphinxcontrib_websupport : 'native'
         sphinxintl: 'native'
         sphinx_rtd_theme : 'native'
@@ -186,7 +184,7 @@ __overwrite__ :
       # At least on DB10 (UB20 uses the same path...), ParaView fails to find xmlpatterns executable
       # ParaViewClient.cmake try to find it from Qt5_DIR, going back from it in filesystem (hardcoded).
       # The standard patch is also needed to be able to build PARAVIS (same kind of issue).
-      __condition__ : "VARS.dist in ['DB10', 'UB20']"
+      __condition__ : "VARS.dist in ['DB10', 'UB20.04']"
       'PRODUCTS.ParaView.version_5_8_0.patches' : ['paraview.0003-ParaViewClient.patch',
                                                    'paraview.0003-ParaViewClient_native.patch']
    }
@@ -196,12 +194,6 @@ __overwrite__ :
       __condition__ : "VARS.dist in ['CO8']"
       'APPLICATION.products.sphinxintl' : '0.9.10'
       'PRODUCTS.sphinxintl.default.properties.pip' : "no"
-   }
-   {
-      # boost >= 1.70.0 use a new config mode which occurs compliant issue with compilation flags (GUI)
-      # Before fixing it, use embedded version, aligned on W10 (higher one)
-      __condition__ : "VARS.dist in ['UB20.04']"
-      'APPLICATION.products.boost' : '1.67.0'
    }
 ]
 
