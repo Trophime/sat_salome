@@ -180,10 +180,10 @@ __overwrite__ :
 [
   {
    # 
-    __condition__ : "VARS.dist in ['CO7']"
     'APPLICATION.products.tbb' : '2019_U8'
     'PRODUCTS.CONFIGURATION.default.patches' : ['paraview-5.9_CONFIGURATION.patch']
     'PRODUCTS.GUI.default.patches'           : ['paraview-5.9_GUI.patch']
+    'PRODUCTS.HYBRIDPLUGIN.default.patches'  : ['paraview-5.9_HYBRIDPLUGIN.patch']
     'PRODUCTS.PARAVIS.default.patches'       : ['paraview-5.9_PARAVIS.patch']
     'PRODUCTS.PARAVISADDONS.default.patches' : ['paraview-5.9_PARAVISADDONS.patch']
   }
