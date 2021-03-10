@@ -76,6 +76,14 @@ then
     exit 5
 fi
 
+# Issue with GUI - TO BE FIXED
+if [ -n "$SIP_ROOT_DIR" ]
+then
+    cp -r $SIP_ROOT_DIR $PRODUCT_INSTALL
+else
+    echo "FATAL: Please set SIP_ROOT_DIR environment variable"
+    exit 6
+fi
 
 echo
 echo "########## END"
