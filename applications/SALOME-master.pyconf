@@ -97,7 +97,7 @@ APPLICATION :
         setuptools : '38.4.0'
         #sip : '4.19.24'
         sip : '5.5.0'
-  #      PyQt5_sip : '12.8.1'
+#        PyQt5_sip : '12.8.1'
         six : '1.10.0'
         snowballstemmer : '1.2.1'
         Sphinx : '1.7.6'
@@ -132,7 +132,7 @@ APPLICATION :
         'GMSHPLUGIN'
         'HEXABLOCK'
         'HEXABLOCKPLUGIN'
-        'HOMARD' : {tag : 'gn/evol_01'}
+        'HOMARD' : {tag : 'vsr/evol_01_fixes'}
         'FIELDS'
         'PARAVIS'
         'JOBMANAGER'
@@ -182,10 +182,6 @@ __overwrite__ :
   {
    # 
     'APPLICATION.products.tbb' : '2019_U8'
-    'PRODUCTS.CONFIGURATION.default.patches' : ['paraview-5.9_CONFIGURATION.patch']
-    'PRODUCTS.GUI.default.patches'           : ['paraview-5.9_GUI.patch']
-    'PRODUCTS.HYBRIDPLUGIN.default.patches'  : ['paraview-5.9_HYBRIDPLUGIN.patch']
-    'PRODUCTS.PARAVIS.default.patches'       : ['paraview-5.9_PARAVIS.patch']
     'PRODUCTS.PARAVISADDONS.default.patches' : ['paraview-5.9_PARAVISADDONS.patch']
   }
 ]
