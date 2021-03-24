@@ -33,9 +33,9 @@ APPLICATION :
         alabaster : '0.7.6'
         Babel : '2.7.0'
         boost : '1.67.0'
-        CAS : {section: 'version_V7_5_0_win', tag: 'V7_5_0'}
+        CAS : {tag: 'CR750-SALOME-PATCH', section: 'version_V7_5_0_win'}
         certifi : '2019.6.16'
-        cgns : '3.3.1'
+        cgns : '4.1.1'
         chardet : '3.0.4'
         click : '7.0'
         cmake : '3.12.1'
@@ -79,23 +79,25 @@ APPLICATION :
         omniORB : '4.2.3'
         omniORBpy : '4.2.3'
         opencv : '3.2.0'
-        ospray : '1.8.4'
+        openVKL: '0.11.0'
+        ospray : '2.4.0'
         packaging : '19.0'
-        ParaView : '5.8.0'
+        ParaView : '5.9.0'
         perl : '5.28.1.1'
         Pillow : '7.1.1'
         planegcs : '0.18-3cb6890'
         pthreads : '2.9.1'
         Pygments : '2.4.2'
         pyparsing : '2.4.0'
-        PyQt : '5.9'
-        PyQtChart : '5.9'
+        PyQt : '5.15.3'
+#        PyQtChart : '5.9'
         pyreadline : '2.1'
         Python : '3.6.5'
         pytz : '2019.1'
-        qt : '5.9.1'
+        qt : '5.12.10'
         qwt : '6.1.2'
         requests : '2.22.0'
+        rkCommon : '1.5.1'
         ruby : '2.5.5-1'
         scipy : '1.4.1'
         setuptools : '41.0.1'
@@ -121,22 +123,22 @@ APPLICATION :
         # SALOME MODULES :
         'CONFIGURATION'
         'SALOME'
-        'SHAPER' : {tag : 'agy/archi5_00'}
+        'SHAPER'
         'SHAPERSTUDY'
         'RESTRICTED'
         'LIBBATCH' : {tag :'V2_4_4'}
-        'KERNEL' : {tag : 'agy/archi5_integ'}
+        'KERNEL'
         'MEDCOUPLING'
-        'GUI' : {tag : 'agy/archi5_integ'}
-        'GEOM' : {tag : 'agy/archi5_integ'}
-        'SMESH' : {tag : 'agy/archi5_integ'}
+        'GUI'
+        'GEOM'
+        'SMESH'
         'NETGENPLUGIN'
         'BLSURFPLUGIN'
         'GHS3DPLUGIN'
         'HYBRIDPLUGIN'
         'HexoticPLUGIN'
         #'GMSHPLUGIN'
-        'HEXABLOCK' : {tag : 'agy/archi5_integ'}
+        'HEXABLOCK'
         'HEXABLOCKPLUGIN'
         #'HOMARD'
         'FIELDS'
@@ -183,6 +185,10 @@ APPLICATION :
 
 __overwrite__ :
 [
+  {
+   # 
+    'PRODUCTS.PARAVISADDONS.default.patches' : ['paraview-5.9_PARAVISADDONS.patch']
+  }
   {
     __condition__ : "APPLICATION.debug == 'yes'"
     'APPLICATION.products.numpy'      : '1.16.4-win-dbg'

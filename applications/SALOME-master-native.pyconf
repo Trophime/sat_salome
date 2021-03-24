@@ -18,8 +18,9 @@ APPLICATION :
            CONFIGURATION_ROOT_DIR : $workdir + $VARS.sep + "SOURCES" + $VARS.sep + "CONFIGURATION"
            RESTRICTED_ROOT_DIR : $workdir + $VARS.sep + "SOURCES" + $VARS.sep + "RESTRICTED"
            SALOME_USE_64BIT_IDS : '1'
+           VTK_SMP_IMPLEMENTATION_TYPE : sequential # OpenMP # choose among: sequential / OpenMP / TBB switches
         }
-        launch : {PYTHONIOENCODING:"UTF_8"} # alternative is to encode every accentued string with .encode('utf-8')
+        launch : {PYTHONIOENCODING:"UTF_8", SALOME_MODULES_ORDER:"SHAPER:SHAPERSTUDY:GEOM:SMESH"}
         SALOME_trace : "local" # local/file:.../with_logger
         SALOME_MODULES : "SHAPER,SHAPERSTUDY,GEOM,SMESH,PARAVIS,YACS,JOBMANAGER"  # specify the first modules to display in gui
     }
@@ -29,11 +30,11 @@ APPLICATION :
         alabaster : 'native'
         Babel : 'native'
         boost : 'native'
-        CAS : 'V7_5_0'
+        CAS : {tag: 'CR750-SALOME-PATCH', section: 'version_V7_5_0'}
         certifi : 'native'
         # Standalone native cgns works well. Unfortunately, it's directly linked to native hdf which uses a higher version than us.
         # Rollback to embedded version to avoid versions mismatch between both of them (see imp_1538_cgns_export_import.py)
-        cgns : '3.3.1'
+        cgns : '4.1.1'
         chardet : 'native'
         click : 'native'
         cmake : 'native'
@@ -44,7 +45,7 @@ APPLICATION :
         docutils : 'native'
         doxygen : 'native'
         eigen : 'native'
-        embree : '3.3.0'
+        embree : '3.12.2'
         freeimage : 'native'
         freetype : 'native'
         gl2ps : 'native'
@@ -52,10 +53,11 @@ APPLICATION :
         gmsh : '4.1.4'
         graphviz : 'native'
         hdf5 : '1.10.3'
+        homard_bin : '11.12_hdf51103med410'
         idna : 'native'
         imagesize : 'native'
         # 'native' not exists (only available on Fedora platform)
-        ispc : '1.9.2'
+        ispc : '1.15.0'
         Jinja2 : 'native'
         kiwisolver : 'native'
         lapack : 'native'
@@ -73,9 +75,10 @@ APPLICATION :
         omniORB : '4.2.3'
         omniORBpy : '4.2.3'
         opencv : 'native'
-        ospray : '1.8.4'
+        openVKL : '0.11.0'
+        ospray : '2.4.0'
         packaging : 'native'
-        ParaView : '5.8.0'
+        ParaView : '5.9.0'
         petsc : '3.14.0'
         Pillow : 'native'
         # 'native' not exists : freeCAD part but not delivered with it from package handler
@@ -89,6 +92,7 @@ APPLICATION :
         qt : 'native'
         qwt : 'native'
         requests : 'native'
+        rkCommon : '1.5.1'
         scipy : 'native'
         scotch : 'native'
         setuptools : 'native'
@@ -97,8 +101,8 @@ APPLICATION :
         snowballstemmer : 'native'
         Sphinx : 'native'
         sphinxcontrib_websupport : 'native'
-        sphinxintl: 'native'
         sphinx_rtd_theme : 'native'
+        sphinxintl: 'native'
         swig : 'native'
         tbb : 'native'
         tcl : 'native'
@@ -126,13 +130,13 @@ APPLICATION :
         'GMSHPLUGIN'
         'HEXABLOCK'
         'HEXABLOCKPLUGIN'
-        'HOMARD' : {tag : 'gn/evol_01'}
+        'HOMARD'
         'FIELDS'
         'PARAVIS'
         'JOBMANAGER'
         'YACS'
-        'SOLVERLAB'
         'YACSGEN'
+        'SOLVERLAB'
         'DOCUMENTATION'
         'SAMPLES'
         'COMPONENT'
@@ -174,9 +178,18 @@ APPLICATION :
 __overwrite__ :
 [
    {
-      # FD32 is the first to use native opencv4 version (4.2.0) : FindOpenCV.cmake fails (GEOM)
-      # Associated library path is found through cv.h header which has been removed
-      # (cf. release note of 2.2 version : use imgproc/imgproc.hpp instead - actually included too)
+      # ParaView 5.9 CMake procedure requires Qt 5.12 as minimum version.
+      # Unfortunately, DB10 native one is 5.11. Let's force it as the new minimum one, as it should
+      # be compliant too (add it everywhere to avoid duplicate overwrites).
+      'PRODUCTS.ParaView.version_5_9_0.patches' : ['paraview.0003-ParaViewClient.patch',
+                                                   'paraview-0012-LATA_64BITS_IDS.patch',
+                                                   'paraview-5.9_qt-minimum-version.patch']
+      'PRODUCTS.PARAVISADDONS.default.patches' : ['paraview-5.9_PARAVISADDONS.patch']
+   }
+   {
+      # Although recent adaptations of GEOM CMake procedure to be compliant with openCV 4.X, some
+      # deeper investigations need to be done in its sources. Use embedded openCV product where
+      # native one is 4.X.
       __condition__ : "VARS.dist in ['FD32', 'UB20.04']"
       'APPLICATION.products.opencv' : '3.2.0'
    }
@@ -196,4 +209,3 @@ __overwrite__ :
       'PRODUCTS.sphinxintl.default.properties.pip' : "no"
    }
 ]
-
