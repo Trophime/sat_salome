@@ -63,7 +63,7 @@ OLEVEL="-O2"
 
 if [ "${TCLHOME}" != '/usr' ]
 then
-    TCK_TK_OPTIONS="--with-tcl=${TCL_LIB_DIR} --with-tk=${TCLHOME}/lib --with-tclinclude=${TCLHOME}/include"
+    TCL_TK_OPTIONS="--with-tcl=${TCLHOME}/lib --with-tk=${TCLHOME}/lib --with-tclinclude=${TCLHOME}/include"
 fi
 echo ./configure --prefix=${PRODUCT_INSTALL} \
     --with-occ=${CASROOT} \

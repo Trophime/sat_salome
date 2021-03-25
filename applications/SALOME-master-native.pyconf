@@ -178,12 +178,7 @@ APPLICATION :
 __overwrite__ :
 [
    {
-      # ParaView 5.9 CMake procedure requires Qt 5.12 as minimum version.
-      # Unfortunately, DB10 native one is 5.11. Let's force it as the new minimum one, as it should
-      # be compliant too (add it everywhere to avoid duplicate overwrites).
-      'PRODUCTS.ParaView.version_5_9_0.patches' : ['paraview.0003-ParaViewClient.patch',
-                                                   'paraview-0012-LATA_64BITS_IDS.patch',
-                                                   'paraview-5.9_qt-minimum-version.patch']
+      #
       'PRODUCTS.PARAVISADDONS.default.patches' : ['paraview-5.9_PARAVISADDONS.patch']
    }
    {
@@ -194,12 +189,26 @@ __overwrite__ :
       'APPLICATION.products.opencv' : '3.2.0'
    }
    {
-      # At least on DB10 (UB20 uses the same path...), ParaView fails to find xmlpatterns executable
-      # ParaViewClient.cmake try to find it from Qt5_DIR, going back from it in filesystem (hardcoded).
+      #
+      __condition__ : "VARS.dist in ['UB20.04', 'CO8', 'FD32']"
+      'PRODUCTS.ParaView.version_5_9_0.patches' : ['paraview.0003-ParaViewClient.patch',
+                                                   'paraview.0005-ParaView_find_cgns.patch',
+                                                   'paraview-0012-LATA_64BITS_IDS.patch',
+                                                   'ParaView-5.9.0-CATALYST_cmake.patch']
+   }
+   {
+      # On DB10, ParaView fails to find xmlpatterns executable : ParaViewClient.cmake try to find it
+      # from Qt5_DIR, going back from it in filesystem (hardcoded).
       # The standard patch is also needed to be able to build PARAVIS (same kind of issue).
-      __condition__ : "VARS.dist in ['DB10', 'UB20.04']"
-      'PRODUCTS.ParaView.version_5_8_0.patches' : ['paraview.0003-ParaViewClient.patch',
-                                                   'paraview.0003-ParaViewClient_native.patch']
+      # What is more, ParaView 5.9 CMake procedure requires Qt 5.12 as minimum version (5.11 here).
+      # As this version is compliant too, let's force it as the new minimum needed version.
+      __condition__ : "VARS.dist in ['DB10']"
+      'PRODUCTS.ParaView.version_5_9_0.patches' : ['paraview.0003-ParaViewClient.patch',
+                                                   'paraview.0005-ParaView_find_cgns.patch',
+                                                   'paraview-0012-LATA_64BITS_IDS.patch',
+                                                   'paraview-5.9_qt-minimum-version.patch',
+                                                   'paraview.0003-ParaViewClient_native.patch',
+                                                   'ParaView-5.9.0-CATALYST_cmake.patch']
    }
    {
       # CentOS 8 repositories don't include sphinxintl package which must be installed through pip.
@@ -207,5 +216,6 @@ __overwrite__ :
       __condition__ : "VARS.dist in ['CO8']"
       'APPLICATION.products.sphinxintl' : '0.9.10'
       'PRODUCTS.sphinxintl.default.properties.pip' : "no"
+      'APPLICATION.products.cmake' : '3.12.1'
    }
 ]
