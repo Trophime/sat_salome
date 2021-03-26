@@ -198,7 +198,7 @@ __overwrite__ :
    }
    {
       # On DB10, ParaView fails to find xmlpatterns executable : ParaViewClient.cmake try to find it
-      # from Qt5_DIR, going back from it in filesystem (hardcoded).
+      # from Qt5_DIR, going back from it in filesystem (hardcoded).
       # The standard patch is also needed to be able to build PARAVIS (same kind of issue).
       # What is more, ParaView 5.9 CMake procedure requires Qt 5.12 as minimum version (5.11 here).
       # As this version is compliant too, let's force it as the new minimum needed version.
