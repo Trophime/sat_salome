@@ -83,6 +83,7 @@ APPLICATION :
         Pillow : 'native'
         # 'native' not exists : freeCAD part but not delivered with it from package handler
         planegcs : '0.18-3cb6890'
+        psutil : 'native'
         Pygments : 'native'
         pyparsing : 'native'
         PyQt : 'native'
@@ -136,7 +137,7 @@ APPLICATION :
         'JOBMANAGER'
         'YACS'
         'YACSGEN'
-        'SOLVERLAB'
+#        'SOLVERLAB'
         'DOCUMENTATION'
         'SAMPLES'
         'COMPONENT'
