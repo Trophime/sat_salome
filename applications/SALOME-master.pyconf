@@ -26,6 +26,7 @@ APPLICATION :
     }
     products :
     {
+        salome_system : 'native'
         # PREREQUISITES :
         alabaster : '0.7.6'
         Babel : '2.7.0'
