@@ -25,7 +25,7 @@ fi
 
 # For -qt-harfbuzz option, see spns #9694
 echo
-echo "*** ./configure -prefix $PRODUCT_INSTALL $BUILD_TYPE -opensource -nomake tests -nomake examples -no-rpath -verbose -no-separate-debug-info -confirm-license -qt-libpng -qt-xcb -no-eglfs -dbus-runtime -skip qtwebengine -skip wayland -skip qtgamepad -system-freetype -qt-harfbuzz -no-openssl -no-glib"
+echo "./configure -prefix $PRODUCT_INSTALL $BUILD_TYPE -opensource -nomake tests -nomake examples -no-rpath -verbose -no-separate-debug-info -confirm-license -qt-libpng -qt-xcb -no-eglfs -dbus-runtime -skip qtwebengine -skip wayland -skip qtgamepad -system-freetype -qt-harfbuzz -no-openssl -no-glib"
 
 ./configure -prefix $PRODUCT_INSTALL $BUILD_TYPE -opensource -nomake tests -nomake examples -no-rpath \
     -verbose -no-separate-debug-info -confirm-license -qt-libpng -qt-xcb -no-eglfs -dbus-runtime -skip qtwebengine \

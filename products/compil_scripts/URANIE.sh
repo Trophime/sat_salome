@@ -14,7 +14,7 @@ CMAKE_OPTIONS=$CMAKE_OPTIONS" -D--enable-doc:BOOL=ON"
 rm -rf $BUILD_DIR
 mkdir -p $BUILD_DIR
 cd $BUILD_DIR
-
+echo "*** cmake $CMAKE_OPTIONS $SOURCE_DIR"
 cmake $CMAKE_OPTIONS $SOURCE_DIR
 
 if [ $? -ne 0 ]
