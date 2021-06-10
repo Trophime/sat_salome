@@ -8,10 +8,6 @@ default :
         repo : "https://codev-tuleap.cea.fr/plugins/git/salome/pmml.git"
         repo_dev : $repo
     }
-    environ :
-    {
-        env_script : $name + ".py"
-    }
     build_depend : ["cmake", "Python", "libxml2"]
     depend : []
     opt_depend : ["swig", "doxygen"]
