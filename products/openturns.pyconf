@@ -37,6 +37,8 @@ default_win :
 
 version_1_16 :
 {
+    compil_script :  "openturns-1.16" + $VARS.scriptExtension
+    archive_info : {archive_name : "openturns-1.16-all.tar.gz"}
     patches : ['openturns-1.16.0001.patch','openturns-1.16.0002.patch']
 }
 

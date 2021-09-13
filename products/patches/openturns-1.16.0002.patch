@@ -1,6 +1,6 @@
-diff -Naur openturns_ref/lib/src/Base/Algo/openturns/KarhunenLoeveAlgorithmImplementation.hxx openturns_new/lib/src/Base/Algo/openturns/KarhunenLoeveAlgorithmImplementation.hxx
---- openturns_ref/lib/src/Base/Algo/openturns/KarhunenLoeveAlgorithmImplementation.hxx	2020-11-10 13:21:21.000000000 +0100
-+++ openturns_new/lib/src/Base/Algo/openturns/KarhunenLoeveAlgorithmImplementation.hxx	2021-05-21 11:08:48.206212694 +0200
+diff -Naur openturns_ref/openturns-1.16/lib/src/Base/Algo/openturns/KarhunenLoeveAlgorithmImplementation.hxx openturns_new/openturns-1.16/lib/src/Base/Algo/openturns/KarhunenLoeveAlgorithmImplementation.hxx
+--- openturns_ref/openturns-1.16/lib/src/Base/Algo/openturns/KarhunenLoeveAlgorithmImplementation.hxx	2020-11-10 13:21:21.000000000 +0100
++++ openturns_new/openturns-1.16/lib/src/Base/Algo/openturns/KarhunenLoeveAlgorithmImplementation.hxx	2021-05-21 11:08:48.206212694 +0200
 @@ -24,6 +24,12 @@
  #include "openturns/PersistentObject.hxx"
  #include "openturns/CovarianceModel.hxx"
