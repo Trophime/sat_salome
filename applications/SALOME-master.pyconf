@@ -72,7 +72,7 @@ APPLICATION :
         omniORB : '4.2.2'
         omniORBpy : '4.2.2'
         opencv : '3.2.0'
-        openturns: '1.16'
+        openturns: '1.17'
         openVKL: '0.11.0'
         ospray : '2.4.0'
         packaging : '17.1'

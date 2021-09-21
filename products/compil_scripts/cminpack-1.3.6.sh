@@ -1,7 +1,7 @@
 #!/bin/bash                                                                                                                                                                              
 
 echo "##########################################################################"
-echo "openturns" $VERSION
+echo "Cminpack " $VERSION
 echo "##########################################################################"
 
 if [ -n "$MPI_ROOT_DIR" ]
@@ -14,8 +14,11 @@ fi
 CMAKE_OPTIONS=""
 CMAKE_OPTIONS+=" -DCMAKE_INSTALL_PREFIX:STRING=${PRODUCT_INSTALL}"
 CMAKE_OPTIONS+=" -DCMAKE_BUILD_TYPE:STRING=Release"
-CMAKE_OPTIONS+=" -DPYTHON_EXECUTABLE=${PYTHONBIN}"
-CMAKE_OPTIONS+=" -DSWIG_EXECUTABLE=${SWIG_ROOT_DIR}/bin/swig"
+CMAKE_OPTIONS+=" -DUSE_BLAS=ON"
+CMAKE_OPTIONS+=" -DUSE_FPIC=ON"
+CMAKE_OPTIONS+=" -DBUILD_EXAMPLES=OFF"
+###CMAKE_OPTIONS+=" -DBUILD_SHARED_LIBS=ON"
+CMAKE_OPTIONS+=" -DCMAKE_INSTALL_LIBDIR:STRING=lib"
 
 echo
 echo "*** cmake" $CMAKE_OPTIONS
@@ -49,18 +52,8 @@ echo "*** check installation"
 
 if [ -d "${PRODUCT_INSTALL}/lib64" ]
 then
-    mv ${PRODUCT_INSTALL}/lib64/* ${PRODUCT_INSTALL}/lib
-    rmdir ${PRODUCT_INSTALL}/lib64
-fi
-
-export PYTHONPATH=${PRODUCT_INSTALL}/lib/python${PYTHON_VERSION}/site-packages:${PYTHONPATH}
-export LD_LIBRARY_PATH=${PRODUCT_INSTALL}/lib:${LD_LIBRARY_PATH}
-chmod +x ${SOURCE_DIR}/python/test/t_features.py
-${SOURCE_DIR}/python/test/t_features.py
-if [ $? -ne 0 ]
-then
-    echo "ERROR  testing Openturns features...."
-    exit 4
+    echo "WARNING: renaming lib64 to lib..."
+    mv ${PRODUCT_INSTALL}/lib64 ${PRODUCT_INSTALL}/lib
 fi
 
 echo

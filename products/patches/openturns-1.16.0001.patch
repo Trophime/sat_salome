@@ -1,7 +1,7 @@
-diff -Naur openturns_ref/openturns-1.16 openturns_new/openturns-1.16
-diff -Naur openturns_ref/openturns-1.16/cmake/FindNLopt.cmake openturns_new/openturns-1.16/cmake/FindNLopt.cmake
---- openturns_ref/openturns-1.16/cmake/FindNLopt.cmake	2020-11-09 14:06:44.000000000 +0100
-+++ openturns_new/openturns-1.16/cmake/FindNLopt.cmake	2021-06-01 10:23:26.144409150 +0200
+diff -Naur openturns_ref openturns_new
+diff -Naur openturns_ref/cmake/FindNLopt.cmake openturns_new/cmake/FindNLopt.cmake
+--- openturns_ref/cmake/FindNLopt.cmake	2020-11-09 14:06:44.000000000 +0100
++++ openturns_new/cmake/FindNLopt.cmake	2021-06-01 10:23:26.144409150 +0200
 @@ -11,10 +11,21 @@
  #  NLOPT_ROOT_DIR - root dir (ex. /usr/local)
  
@@ -38,9 +38,9 @@ diff -Naur openturns_ref/openturns-1.16/cmake/FindNLopt.cmake openturns_new/open
  )
  
  # set NLOPT_LIBRARIES
-diff -Naur openturns_ref/openturns-1.16/cmake/FindTBB.cmake openturns_new/openturns-1.16/cmake/FindTBB.cmake
---- openturns_ref/openturns-1.16/cmake/FindTBB.cmake	2020-11-10 13:21:21.000000000 +0100
-+++ openturns_new/openturns-1.16/cmake/FindTBB.cmake	2021-06-01 10:23:26.144409150 +0200
+diff -Naur openturns_ref/cmake/FindTBB.cmake openturns_new/cmake/FindTBB.cmake
+--- openturns_ref/cmake/FindTBB.cmake	2020-11-10 13:21:21.000000000 +0100
++++ openturns_new/cmake/FindTBB.cmake	2021-06-01 10:23:26.144409150 +0200
 @@ -27,6 +27,11 @@
  # (To distributed this file outside of CMake, substitute the full
  #  License text for the above reference.)
@@ -53,9 +53,9 @@ diff -Naur openturns_ref/openturns-1.16/cmake/FindTBB.cmake openturns_new/opentu
  find_path (TBB_INCLUDE_DIR NAMES tbb/tbb.h DOC "TBB include directory")
  
  set (TBB_INCLUDE_DIRS ${TBB_INCLUDE_DIR})
-diff -Naur openturns_ref/openturns-1.16/CMakeLists.txt openturns_new/openturns-1.16/CMakeLists.txt
---- openturns_ref/openturns-1.16/CMakeLists.txt	2020-11-18 16:33:36.000000000 +0100
-+++ openturns_new/openturns-1.16/CMakeLists.txt	2021-06-01 10:26:34.647699757 +0200
+diff -Naur openturns_ref/CMakeLists.txt openturns_new/CMakeLists.txt
+--- openturns_ref/CMakeLists.txt	2020-11-18 16:33:36.000000000 +0100
++++ openturns_new/CMakeLists.txt	2021-06-01 10:26:34.647699757 +0200
 @@ -125,6 +125,10 @@
  set (TEMPDIR ${OPENTURNS_TEMPDIR})
  
@@ -129,9 +129,9 @@ diff -Naur openturns_ref/openturns-1.16/CMakeLists.txt openturns_new/openturns-1
    if (NLopt_FOUND)
      message(STATUS "Found NLopt: ${NLopt_DIR}")
    else ()
-diff -Naur openturns_ref/openturns-1.16/lib/src/Base/Common/openturns/TBB.hxx openturns_new/openturns-1.16/lib/src/Base/Common/openturns/TBB.hxx
---- openturns_ref/openturns-1.16/lib/src/Base/Common/openturns/TBB.hxx	2020-11-10 13:21:21.000000000 +0100
-+++ openturns_new/openturns-1.16/lib/src/Base/Common/openturns/TBB.hxx	2021-06-01 10:23:26.145409141 +0200
+diff -Naur openturns_ref/lib/src/Base/Common/openturns/TBB.hxx openturns_new/lib/src/Base/Common/openturns/TBB.hxx
+--- openturns_ref/lib/src/Base/Common/openturns/TBB.hxx	2020-11-10 13:21:21.000000000 +0100
++++ openturns_new/lib/src/Base/Common/openturns/TBB.hxx	2021-06-01 10:23:26.145409141 +0200
 @@ -35,6 +35,7 @@
  #  define __TBBMALLOC_NO_IMPLICIT_LINKAGE 1
  # endif
@@ -140,9 +140,9 @@ diff -Naur openturns_ref/openturns-1.16/lib/src/Base/Common/openturns/TBB.hxx op
  #include <tbb/task_arena.h>
  #include <tbb/parallel_sort.h>
  #include <tbb/parallel_reduce.h>
-diff -Naur openturns_ref/openturns-1.16//lib/src/CMakeLists.txt openturns_new/openturns-1.16//lib/src/CMakeLists.txt
---- openturns_ref/openturns-1.16/lib/src/CMakeLists.txt         2020-11-10 13:21:21.000000000 +0100
-+++ openturns_new/openturns-1.16//lib/src/CMakeLists.txt	2021-06-01 10:23:26.144409150 +0200
+diff -Naur openturns_ref/lib/src/CMakeLists.txt openturns_new/lib/src/CMakeLists.txt
+--- openturns_ref/lib/src/CMakeLists.txt	2020-11-10 13:21:21.000000000 +0100
++++ openturns_new/lib/src/CMakeLists.txt	2021-06-01 10:23:26.144409150 +0200
 @@ -80,15 +80,15 @@
    add_dependencies (OT generate_csv_parser)
  endif ()
