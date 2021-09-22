@@ -239,4 +239,8 @@ __overwrite__ :
       'PRODUCTS.qt.default.system_info.rpm' : []
       'PRODUCTS.qt.default.system_info.rpm_dev' : ["qt5-qtbase-devel"]
    }
+   {
+      # PyFMI not available as native package
+      'PRODUCTS.PyFMI.default.properties.pip' : "no"
+   }
 ]
