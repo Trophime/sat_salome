@@ -25,3 +25,12 @@ default :
       pip : "yes"
     }
 }
+
+version_2_5 :
+{
+    properties:
+    {
+      incremental : "yes"
+      pip : "yes"
+    }
+}

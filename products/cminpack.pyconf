@@ -5,6 +5,13 @@ default :
     cmake_options : " -DUSE_BLAS=ON -DUSE_FPIC=ON -DBUILD_SHARED_LIBS=ON  -DCMAKE_INSTALL_LIBDIR:STRING=lib "
     compil_script :  $name + $VARS.scriptExtension
     get_source : "archive"
+    system_info :
+    {
+        rpm : ['cminpack']
+        rpm_dev : []
+        apt : ['libcminpack1']
+        apt_dev : ['libcminpack-dev']
+    }
     environ :
     {
        env_script : $name + ".py"
