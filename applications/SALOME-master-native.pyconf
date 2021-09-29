@@ -40,7 +40,7 @@ APPLICATION :
         click : 'native'
         cmake : 'native'
         cppunit : 'native'
-        cminpack: 'native'
+        cminpack: '1.3.6'
         cycler : 'native'
         Cython : 'native'
         dateutil : 'native'
@@ -242,10 +242,12 @@ __overwrite__ :
 
    {
      __condition__ : "VARS.dist in ['FD32']"
-      'APPLICATION.products.cminpack': '1.3.6'
+      'PRODUCTS.PyFMI.version_2_5.properties.pip' : "no"
+      'PRODUCTS.PyFMI.version_2_5.compil_script' : "PyFMI-2.5.sh"
    }
    {
      __condition__ : "VARS.dist in ['DB10', 'UB20.04']"
+      'APPLICATION.products.cminpack': 'native'
       'PRODUCTS.PyFMI.version_2_5.properties.pip' : "no"
       'PRODUCTS.PyFMI.version_2_5.compil_script' : "PyFMI-2.5.sh"
    }
