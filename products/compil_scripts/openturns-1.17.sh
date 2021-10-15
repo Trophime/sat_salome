@@ -24,22 +24,19 @@ CMAKE_OPTIONS+=" -DCMAKE_BUILD_TYPE:STRING=Release"
 CMAKE_OPTIONS+=" -DPYTHON_EXECUTABLE=${PYTHONBIN}"
 CMAKE_OPTIONS+=" -DSWIG_EXECUTABLE=${SWIG_ROOT_DIR}/bin/swig"
 
-if [ "${TBB_ROOT_DIR}" != "/usr" ]
-then
+if [ -n "$TBB_ROOT_DIR" ] && [ "${TBB_ROOT_DIR}" != "/usr" ]; then
     CMAKE_OPTIONS+=" -DTBB_ROOT_DIR=${TBB_ROOT_DIR}"
 fi
 
 ### libxml2 settings
-if [ "${LIBXML2_ROOT_DIR}" != "/usr" ]
-then
+if [ -n "$LIBXML2_ROOT_DIR" ] && [ "${LIBXML2_ROOT_DIR}" != "/usr" ]; then
     CMAKE_OPTIONS+=" -DLIBXML2_INCLUDE_DIR:STRING=${LIBXML2_ROOT_DIR}/include/libxml2"
     CMAKE_OPTIONS+=" -DLIBXML2_LIBRARIES:STRING=${LIBXML2_ROOT_DIR}/lib/libxml2.so"
     CMAKE_OPTIONS+=" -DLIBXML2_XMLLINT_EXECUTABLE=${LIBXML2_ROOT_DIR}/bin/xmllint"
 fi
 
 # HDF5
-if [ "${HDF5_ROOT_DIR}" != "/usr" ]
-then
+if [ -n "$HDF5_ROOT_DIR" ] && [ "${HDF5_ROOT_DIR}" != "/usr" ]; then
     CMAKE_OPTIONS+=" -DHDF5_DIR:PATH=${HDF5_ROOT_DIR}/share/cmake/hdf5"
     CMAKE_OPTIONS+=" -DHDF5_USE_STATIC_LIBRARIES:BOOL=OFF"
     CMAKE_OPTIONS+=" -DHDF5_ROOT:PATH=${HDF5_ROOT_DIR}"
@@ -50,8 +47,7 @@ then
 fi
 
 # CMINPACK
-if [ "${CMINPACK_ROOT_DIR}" != "/usr" ]
-then
+if [ "${CMINPACK_ROOT_DIR}" != "/usr" ]; then
     CMAKE_OPTIONS+=" -DCMINPACK_ROOT_DIR=${CMINPACK_ROOT_DIR}"
     CMAKE_OPTIONS+=" -DCMINPACK_INCLUDE_DIR=${CMINPACK_ROOT_DIR}/include/cminpack-1"
     CMAKE_OPTIONS+=" -DCMINPACK_LIBRARY=$CMINPACK_ROOT_DIR/lib/libcminpack_s.a"
@@ -67,15 +63,17 @@ then
     CMAKE_OPTIONS+=" -DCBLAS_LIBRARIES=$LAPACK_ROOT_DIR/lib/libcblas.so"
 fi
 ### libxml2 settings
-if [ -n "$LIBXML2_ROOT_DIR" ]
-then
-    # with a native libxml2, do not use these options
-    if [ "${LIBXML2_ROOT_DIR}" != "/usr" ]
-    then
-        CMAKE_OPTIONS+=" -DLIBXML2_INCLUDE_DIR:STRING=${LIBXML2_ROOT_DIR}/include/libxml2"
-        CMAKE_OPTIONS+=" -DLIBXML2_LIBRARIES:STRING=${LIBXML2_ROOT_DIR}/lib/libxml2.so"
-        CMAKE_OPTIONS+=" -DLIBXML2_XMLLINT_EXECUTABLE=${LIBXML2_ROOT_DIR}/bin/xmllint"
-    fi
+if [ -n "$LIBXML2_ROOT_DIR" ] && [ "${LIBXML2_ROOT_DIR}" != "/usr" ]; then
+    CMAKE_OPTIONS+=" -DLIBXML2_INCLUDE_DIR:STRING=${LIBXML2_ROOT_DIR}/include/libxml2"
+    CMAKE_OPTIONS+=" -DLIBXML2_LIBRARIES:STRING=${LIBXML2_ROOT_DIR}/lib/libxml2.so"
+    CMAKE_OPTIONS+=" -DLIBXML2_XMLLINT_EXECUTABLE=${LIBXML2_ROOT_DIR}/bin/xmllint"
+fi
+
+## nlopt
+if [ -n "$NLOPT_ROOT_DIR" ] && [ "${NLOPT_ROOT_DIR}" != "/usr" ]; then
+    CMAKE_OPTIONS+=" -DNLOPT_INCLUDE_DIRS:STRING=${NLOPT_ROOT_DIR}/include"
+    CMAKE_OPTIONS+=" -DNLOPT_LIBRARIES:STRING=${NLOPT_ROOT_DIR}/lib"
+    CMAKE_OPTIONS+=" -DNLOPT_DIR:STRING=${NLOPT_ROOT_DIR}"
 fi
 
 echo

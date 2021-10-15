@@ -1,6 +1,6 @@
 diff -Naur openturns-1.17_ref/openturns-1.17/CMakeLists.txt openturns-1.17_new/openturns-1.17/CMakeLists.txt
---- openturns-1.17_ref/openturns-1.17/CMakeLists.txt	2021-09-21 13:28:10.257960906 +0200
-+++ openturns-1.17_new/openturns-1.17/CMakeLists.txt	2021-09-21 13:37:49.975423413 +0200
+--- openturns-1.17_ref/openturns-1.17/CMakeLists.txt	2021-09-21 13:59:56.000000000 +0200
++++ openturns-1.17_new/openturns-1.17/CMakeLists.txt	2021-10-04 13:27:16.893096795 +0200
 @@ -133,6 +133,11 @@
  
  set (CMAKE_CXX_STANDARD 11)
@@ -79,17 +79,19 @@ diff -Naur openturns-1.17_ref/openturns-1.17/CMakeLists.txt openturns-1.17_new/o
    find_package (Boost 1.46)
    if (Boost_FOUND)
      if (CMAKE_VERSION VERSION_LESS 3.15)
-@@ -272,6 +305,10 @@
+@@ -272,7 +305,11 @@
  endif ()
  
  if (USE_NLOPT)
+-  find_package (NLopt CONFIG QUIET)
 +  SET(NLOPT_ROOT_DIR $ENV{NLOPT_ROOT_DIR} CACHE PATH "Path to the NLOPT.")
 +  IF(NLOPT_ROOT_DIR)
 +    LIST(APPEND CMAKE_PREFIX_PATH "${NLOPT_ROOT_DIR}")
 +  ENDIF(NLOPT_ROOT_DIR)
-   find_package (NLopt CONFIG QUIET)
++  find_package (NLopt)
    if (NLopt_FOUND)
      message(STATUS "Found NLopt: ${NLopt_DIR}")
+   else ()
 @@ -336,22 +373,22 @@
  endif ()
  
