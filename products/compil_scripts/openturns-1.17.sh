@@ -47,7 +47,7 @@ if [ -n "$HDF5_ROOT_DIR" ] && [ "${HDF5_ROOT_DIR}" != "/usr" ]; then
 fi
 
 # CMINPACK
-if [ "${CMINPACK_ROOT_DIR}" != "/usr" ]; then
+if [ -n "$CMINPACK_ROOT_DIR"] && ["${CMINPACK_ROOT_DIR}" != "/usr" ]; then
     CMAKE_OPTIONS+=" -DCMINPACK_ROOT_DIR=${CMINPACK_ROOT_DIR}"
     CMAKE_OPTIONS+=" -DCMINPACK_INCLUDE_DIR=${CMINPACK_ROOT_DIR}/include/cminpack-1"
     CMAKE_OPTIONS+=" -DCMINPACK_LIBRARY=$CMINPACK_ROOT_DIR/lib/libcminpack_s.a"
@@ -56,7 +56,7 @@ else
     CMAKE_OPTIONS+=" -DCMINPACK_INCLUDE_DIR=${CMINPACK_ROOT_DIR}/include/cminpack-1"
 fi
 # Blas/Lapack
-if [ "${LAPACK_ROOT_DIR}" != "/usr" ]
+if [ -n "$LAPACK_ROOT_DIR"] && [ "${LAPACK_ROOT_DIR}" != "/usr" ]
 then
     CMAKE_OPTIONS+=" -DLAPACK_DIR=${LAPACK_ROOT_DIR}/lib/cmake/lapack-3.8.0"
     CMAKE_OPTIONS+=" -DCBLAS_DIR=${LAPACK_ROOT_DIR}/lib/cmake/cblas-3.8.0"
