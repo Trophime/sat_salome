@@ -81,6 +81,7 @@ APPLICATION :
         openturns: '1.17'
         ospray : '2.4.0'
         packaging : 'native'
+        #        pandas : '1.13.1'
         ParaView : '5.9.0'
         petsc : {tag : '3.15.0', section: 'version_3_15_0'}
         Pillow : 'native'
@@ -110,6 +111,7 @@ APPLICATION :
         sphinxintl: 'native'
         sphinx_rtd_theme : 'native'
         StaticMeshPlugin: '5.8.0'
+        statsmodels : 'native'
         swig : 'native'
         salome_system : 'native'
         tbb : 'native'

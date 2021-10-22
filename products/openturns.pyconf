@@ -51,6 +51,7 @@ version_1_17 :
     compil_script :  "openturns-1.17" + $VARS.scriptExtension
     patches : ['openturns-1.17.0001.patch']
     depend : ['Python', 'lapack', 'hdf5', 'tbb', 'nlopt', 'libxml2', 'eigen', 'matplotlib', 'cminpack', 'FMILibrary', 'PyFMI']
+    opt_depends : ['pandas', 'statsmodels']
 }
 
 version_1_17_win :

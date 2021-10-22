@@ -192,7 +192,7 @@ if [[ -d "$SOURCE_DIR/otfftw-0.11" ]]; then
     done
     declare -A OTP
     OTP["otfmi"]="0.11"
-    #OTP["otpod"]="0.6.7"
+    OTP["otpod"]="0.6.7"
     OTP["otwrapy"]="0.10"
     for k in ${!OTP[@]};
     do 
