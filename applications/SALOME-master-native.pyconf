@@ -81,7 +81,7 @@ APPLICATION :
         openturns: '1.17'
         ospray : '2.4.0'
         packaging : 'native'
-        #        pandas : '1.13.1'
+        pandas : 'native'
         ParaView : '5.9.0'
         petsc : {tag : '3.15.0', section: 'version_3_15_0'}
         Pillow : 'native'
