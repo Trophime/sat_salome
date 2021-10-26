@@ -4,7 +4,6 @@ echo "##########################################################################
 echo "openturns" $VERSION
 echo "##########################################################################"
 
-COPY_OPENTURNS=0
 # we don't install in python directory -> modify environment as described in INSTALL file
 mkdir -p $PRODUCT_INSTALL/lib/python${PYTHON_VERSION:0:3}/site-packages
 export PATH=$(pwd)/bin:$PATH
@@ -61,6 +60,7 @@ if [ -n "$LAPACK_ROOT_DIR" ] && [ "${LAPACK_ROOT_DIR}" != "/usr" ]; then
     CMAKE_OPTIONS+=" -DLAPACK_DIR=${LAPACK_ROOT_DIR}/lib/cmake/lapack-3.8.0"
     CMAKE_OPTIONS+=" -DCBLAS_DIR=${LAPACK_ROOT_DIR}/lib/cmake/cblas-3.8.0"
     CMAKE_OPTIONS+=" -DCBLAS_LIBRARIES=$LAPACK_ROOT_DIR/lib/libcblas.so"
+    CMAKE_OPTIONS+=" -DBLAS_LIBRARIES=$LAPACK_ROOT_DIR/lib/libblas.so"
 fi
 
 ### libxml2 settings
@@ -199,6 +199,48 @@ if [[ -d "$SOURCE_DIR/otfftw-0.11" ]]; then
     do 
         echo
         echo "*** C O M P O N E N T : $k-${OTP[$k]} "
+	
+	# For non native builds install everything, since Python is embedded
+	if [[ ! $APPLICATION_NAME =~ native ]]; then
+            if [[ $k == "otfmi" ]]; then
+		echo "INFO: install dill-0.3.4"
+		${PYTHONBIN} -m pip install $SOURCE_DIR/dill-0.3.4/dill-0.3.4-py2.py3-none-any.whl --no-deps
+		if [ $? -ne 0 ]
+		then
+		    echo "FATAL: could not install dikk-0.3.4"
+		    exit 5
+		fi
+	    elif [[ $k == "otpod" ]]; then
+		echo "INFO: install threadpoolctl-3.0.0"
+		${PYTHONBIN} -m pip install $SOURCE_DIR/threadpoolctl-3.0.0/threadpoolctl-3.0.0-py3-none-any.whl --no-deps
+		if [ $? -ne 0 ]
+		then
+		    echo "FATAL: could not install readpoolctl 3.0.0"
+		    exit 6
+		fi
+		echo "INFO: install joblib-1.1.0"
+		${PYTHONBIN} -m pip install $SOURCE_DIR/joblib-1.1.0/joblib-1.1.0-py2.py3-none-any.whl --no-deps
+		if [ $? -ne 0 ]
+		then
+		    echo "FATAL: could not install joblib-1.1.0"
+		    exit 6
+		fi
+		echo "INFO: install decorator-5.1.0"
+		${PYTHONBIN} -m pip install $SOURCE_DIR/decorator-5.1.0/decorator-5.1.0-py3-none-any.whl --no-deps
+		if [ $? -ne 0 ]
+		then
+		    echo "FATAL: could not install decorator-5.1.0"
+		    exit 6
+		fi
+		echo "INFO: install scikit-learn-0.24.2"
+		${PYTHONBIN} -m pip install $SOURCE_DIR/scikit-learn-0.24.2/scikit-learn-0.24.2.tar.gz --no-deps
+		if [ $? -ne 0 ]
+		then
+		    echo "FATAL: could not install scikit-0.24.2"
+		    exit 6
+		fi
+	    fi
+	fi
 
         cd  $BUILD_DIR
         mkdir ${BUILD_DIR}/$k
