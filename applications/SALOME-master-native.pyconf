@@ -31,7 +31,7 @@ APPLICATION :
         alabaster : 'native'
         Babel : 'native'
         boost : 'native'
-        CAS : {tag: 'V7_5_0p1', section: 'version_V7_5_0'}
+        CAS : {tag: 'b08cd044f9', section: 'version_7_5_3p1'}
         certifi : 'native'
         # Standalone native cgns works well. Unfortunately, it's directly linked to native hdf which uses a higher version than us.
         # Rollback to embedded version to avoid versions mismatch between both of them (see imp_1538_cgns_export_import.py)
@@ -53,7 +53,7 @@ APPLICATION :
         freetype : 'native'
         gl2ps : 'native'
         # 'native' too difficult here : need python-pip package (gmsh-sdk) besides system packages
-        gmsh : '4.1.4'
+        gmsh : '4.8.4'
         graphviz : 'native'
         hdf5 : '1.10.3'
         idna : 'native'
@@ -67,11 +67,11 @@ APPLICATION :
         llvm : 'native'
         markupsafe : 'native'
         matplotlib : 'native'
-        medfile : {section: 'default_Autotools', tag: '4.1.0'}
+        medfile : {section: 'default_Autotools', tag: '4.1.1rc1'}
         mesa : 'native'
-        MeshGems : '2.12-1'
+        MeshGems : '2.13-1'
         metis : 'native'
-        netgen : '5.3.1_with_CAS_7.2'
+        netgen : '6.2.2101'
         nlopt : '2.4.2'
         numpy : 'native'
         omniORB : '4.2.3'
@@ -204,6 +204,8 @@ __overwrite__ :
                                                    'paraview.0008-ParaView_coincident_rendering.patch',
                                                    'paraview.0017-ParaView_protobuf_crash.patch',
                                                    'paraview.0015-Paraview_VTKM_ioss.patch'
+                                                   'paraview.0018-spns-26351-autoconvert.patch',
+                                                   'paraview.0019-spns-26344-VTK-OpenMP.patch'
                                                   ]
    }
    {
@@ -221,6 +223,8 @@ __overwrite__ :
                                                    'paraview.0008-ParaView_coincident_rendering.patch',
                                                    'paraview.0017-ParaView_protobuf_crash.patch',
                                                    'paraview.0015-Paraview_VTKM_ioss.patch'
+                                                   'paraview.0018-spns-26351-autoconvert.patch',
+                                                   'paraview.0019-spns-26344-VTK-OpenMP.patch'
                                                   ]
    }
    {

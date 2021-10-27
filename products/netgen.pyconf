@@ -24,16 +24,24 @@ default_win:
    depend : ['CAS','zlib','tcltk']
 }
 
-version_6_2_2102 :
+version_6_2_2101 :
 {
    build_source : "cmake"
-   cmake_options : "cmake -DUSE_GUI=OFF -DUSE_PYTHON=OFF -DUSE_MPI=OFF -DUSE_OCC=ON -DUSE_INTERNAL_TCL=OFF -DBUILD_STUB_FILES=OFF -DOCC_INCLUDE_DIR=$CAS_ROOT_DIR/include/opencascade -DOCC_LIBRARY_DIR=$CAS_ROOT_DIR/lib -DCMAKE_INSTALL_LIBDIR=lib "
+   cmake_options : "cmake -DUSE_GUI=OFF -DUSE_PYTHON=OFF -DUSE_MPI=OFF -DUSE_OCC=ON -DUSE_INTERNAL_TCL=OFF -DBUILD_STUB_FILES=OFF -DOCC_INCLUDE_DIR=$CAS_ROOT_DIR/include/opencascade -DOCC_LIBRARY_DIR=$CAS_ROOT_DIR/lib -DCMAKE_INSTALL_LIBDIR=lib -DCMAKE_CXX_STANDARD=17 "
+   patches : ['netgen62ForSalome.patch']
 }
 
-version_6_2_2007 :
+version_6_2_2101_win :
 {
-   build_source : "cmake"
-   cmake_options : "cmake -DUSE_GUI=OFF -DUSE_PYTHON=OFF -DUSE_MPI=OFF -DUSE_OCC=ON -DUSE_INTERNAL_TCL=OFF -DBUILD_STUB_FILES=OFF -DOCC_INCLUDE_DIR=$CAS_ROOT_DIR/include/opencascade -DOCC_LIBRARY_DIR=$CAS_ROOT_DIR/lib -DCMAKE_INSTALL_LIBDIR=lib "
+   build_source : "script"
+   archive_info: {archive_name : "netgen-6.2.2101_cmake-3.16.7.tar.gz"}
+   patches : ['netgen62ForSalome_windows.patch', 'netgen.101.windows.patch']
+   compil_script :  'netgen-6.2.2101.bat'
+   properties :
+   {
+     incremental : "yes"
+     single_install_dir : "yes"
+   }
 }
 
 version_5_3_1_with_CAS_7_2 :

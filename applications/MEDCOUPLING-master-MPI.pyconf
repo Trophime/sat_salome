@@ -43,7 +43,7 @@ APPLICATION :
         lapack : '3.8.0'
         libxml2 : '2.9.1'
         markupsafe : '0.23'
-        medfile : {tag : '4.1.0', hpc : 'yes', section : 'default_Autotools' }
+        medfile : {tag : '4.1.1', hpc : 'yes', section : 'default_Autotools' }
         mpi4py: '3.0.3'
         numpy : '1.15.1'
         openmpi : '3.1.6'
@@ -87,7 +87,11 @@ APPLICATION :
 __overwrite__ :
 [
   {
-    __condition__ : "VARS.dist in ['FD32']"
+    __condition__ : "VARS.dist in ['FD32', 'FD34']"
     'APPLICATION.products.scipy' : '1.5.2' # gcc https://github.com/scipy/scipy/issues/11611 - either patch numpy to include -fallow-argument-mismatch or move to that version
+  }
+  {
+   __condition__: "VARS.dist in ['FD34']"
+    'PRODUCTS.Python.version_3_6_5.patches' : ["python_3.6.5-allocation.patch"] # https://github.com/pyenv/pyenv/issues/1889
   }
 ]
