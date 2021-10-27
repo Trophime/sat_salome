@@ -56,7 +56,7 @@ else
 fi
 
 # Blas/Lapack
-if [ -n "$LAPACK_ROOT_DIR" ] && [ "${LAPACK_ROOT_DIR}" != "/usr" ]; then
+if [ -n "$LAPACK_ROOT_DIR" ] && [ "${LAPACK_ROOT_DIR}" != "/" ]; then
     CMAKE_OPTIONS+=" -DLAPACK_DIR=${LAPACK_ROOT_DIR}/lib/cmake/lapack-3.8.0"
     CMAKE_OPTIONS+=" -DCBLAS_DIR=${LAPACK_ROOT_DIR}/lib/cmake/cblas-3.8.0"
     CMAKE_OPTIONS+=" -DCBLAS_LIBRARIES=$LAPACK_ROOT_DIR/lib/libcblas.so"
