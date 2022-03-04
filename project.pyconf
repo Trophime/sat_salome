@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
 
-project_path : $PWD
+root_path : $PWD + "/../"
+project_path : $PWD + "/"
 
 # Where to search the archives of the products
 ARCHIVEPATH : $root_path + "ARCHIVES"

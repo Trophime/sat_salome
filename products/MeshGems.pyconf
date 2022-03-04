@@ -40,7 +40,7 @@ version_2_13_1 :
     properties :
     {
       is_distene : "no"
-      licence : "libSalomeMeshGemsKeyGenerator"
+      licence : $install_dir + $VARS.sep + ".." +  $VARS.sep  + "MGKeyGen" + $VARS.sep + "lib" + $VARS.sep + "libSalomeMeshGemsKeyGenerator"
       incremental : "yes"
     }
 }

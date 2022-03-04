@@ -8,7 +8,7 @@ default :
     {
         rpm : ["tk"]
         rpm_dev : ["tk-devel"]
-        apt : ["libtk"]
+        apt : []
         apt_dev : ["tk-dev"]
     }
     environ :

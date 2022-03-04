@@ -9,6 +9,13 @@ default :
        env_script : $name + ".py"
     }
     depend : ['Python']
+    system_info : 
+    {
+        rpm : ["nlopt-dev"]
+        rpm_dev : []
+        apt : ["libnlopt-cxx-dev"]
+        apt_dev : []
+    }
     build_depend : ["cmake", "swig"]
     patches : []
     source_dir : $APPLICATION.workdir + $VARS.sep + 'SOURCES' + $VARS.sep + $name

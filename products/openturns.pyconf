@@ -9,6 +9,13 @@ default :
        env_script : $name + ".py"
     }
     depend : ['Python', 'lapack', 'hdf5', 'tbb', 'nlopt', 'libxml2', 'eigen', 'matplotlib']
+    system_info : 
+    {
+        rpm : ["openturns-dev"]
+        rpm_dev : []
+        apt : ["libopenturns-dev"]
+        apt_dev : []
+    }
     build_depend : ["cmake", "swig"]
     opt_depend : ['openmpi']
     patches : []
@@ -49,8 +56,9 @@ version_1_16_win :
 version_1_17 :
 {
     compil_script :  "openturns-1.17" + $VARS.scriptExtension
-    patches : ['openturns-1.17.0001.patch']
-    depend : ['Python', 'lapack', 'hdf5', 'tbb', 'nlopt', 'libxml2', 'eigen', 'matplotlib', 'cminpack', 'FMILibrary', 'PyFMI']
+    # patches : ['openturns-1.17.0001.patch']
+    patches : []
+    depend : ['Python', 'lapack', 'hdf5', 'tbb', 'nlopt', 'libxml2', 'eigen', 'matplotlib', 'cminpack', 'FMILibrary', 'PyFMI', 'spectra', 'hmat']
     opt_depend : ['pandas', 'statsmodels']
 }
 

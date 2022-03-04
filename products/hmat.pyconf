@@ -1,24 +1,22 @@
 default :
 {
-    name : "fftw"
-    build_source : "script"
-    compil_script :  $name + $VARS.scriptExtension
+    name : "hmat"
+    build_source : "cmake"
+    cmake_options : "-DCMAKE_INSTALL_LIBDIR=lib"
     get_source : "archive"
     system_info : 
     {
-        rpm : ["fftw"]
-        rpm_dev : ["fftw-devel"]
-        apt : ["fftw-dev"]
-        apt_dev : ["fftw-dev"]
-    }
-    archive_info:
-    {
+        rpm : ["hmat-dev"]
+        rpm_dev : []
+        apt : ["libhmat-oss-dev"]
+        apt_dev : []
     }
     environ :
     {
        env_script : $name + ".py"
     }
-    depend : ['Python' ]
+    depend : ['eigen']
+    build_depend : ['cmake']
     source_dir : $APPLICATION.workdir + $VARS.sep + 'SOURCES' + $VARS.sep + $name
     build_dir : $APPLICATION.workdir + $VARS.sep + 'BUILD' + $VARS.sep + $name
     install_dir : 'base'
@@ -26,13 +24,4 @@ default :
     {
       incremental : "yes"
     }
-}
-
-default_win :
-{
-   properties:
-   {
-     incremental : "yes"
-     single_install_dir : "yes"
-   }
 }

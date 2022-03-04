@@ -267,5 +267,14 @@ then
     exit 3
 fi
 
+if [ "$CGNS_ROOT_DIR" != "/usr" ]
+then
+    ACTUAL_PVLIBVERSION=$(ls -1 "${PRODUCT_INSTALL}"/lib/cmake/ | grep paraview | tr -d "paraview-")
+    echo "*** shall modify FindCGNS.cmake in ${PRODUCT_INSTALL}/lib/cmake/paraview-${ACTUAL_PVLIBVERSION} to search in CNGS_ROOT_DIR ***"
+    echo
+    mv ${PRODUCT_INSTALL}/lib/cmake/paraview-${ACTUAL_PVLIBVERSION}/FindCGNS.cmake ${PRODUCT_INSTALL}/lib/cmake/paraview-${ACTUAL_PVLIBVERSION}/FindCGNS.cmake.orig
+    cp ${SOURCE_DIR}/../../PROJECT/products/patches/FindCGNS.cmake ${PRODUCT_INSTALL}/lib/cmake/paraview-${ACTUAL_PVLIBVERSION}
+fi
+
 echo
 echo "########## END"

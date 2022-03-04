@@ -8,7 +8,7 @@ default :
     {
         rpm : ["tcl"]
         rpm_dev : ["tcl-devel"]
-        apt : ["libtcl"]
+        apt : []
         apt_dev : ["tcl-dev"]
     }
     environ :

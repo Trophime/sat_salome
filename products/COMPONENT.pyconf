@@ -5,8 +5,8 @@ default :
     get_source : "git"
     git_info:
     {
-        repo : $PROJECTS.projects.salome.git_info.default_git_server + "samples/component.git"
-        repo_dev : $PROJECTS.projects.salome.git_info.default_git_server_dev + "component.git"
+        repo : $PROJECTS.projects.project.git_info.default_git_server + "samples/component.git"
+        repo_dev : $PROJECTS.projects.project.git_info.default_git_server_dev + "component.git"
     }
     environ :
     {

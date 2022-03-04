@@ -38,7 +38,7 @@ def set_DASSAULT_license(env, version):
   if platform.system() == "Windows" :
     license_file_name=license_file_prefix + '-' + version + '.dll'
   else:
-    license_file_name=license_file_prefix + '-' + version + '-' + linux_dist + '.so'
+    license_file_name=license_file_prefix + '.so'
 
   if not os.path.exists(license_file_name):
      print("\nWARNING : DASSAULT license file %s not found!" % license_file_name) 

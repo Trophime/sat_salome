@@ -6,8 +6,8 @@ default :
     get_source : "git"
     git_info:
     {
-        repo : $PROJECTS.projects.salome.git_info.default_git_server + "modules/gui.git"
-        repo_dev : $PROJECTS.projects.salome.git_info.default_git_server_dev + "gui.git"
+        repo : $PROJECTS.projects.project.git_info.default_git_server + "modules/gui.git"
+        repo_dev : $PROJECTS.projects.project.git_info.default_git_server_dev + "gui.git"
     }
     environ :
     {
@@ -165,8 +165,8 @@ version_7_8_0_to_8_4_0 :
     get_source : "git"
     git_info:
     {
-        repo : $PROJECTS.projects.salome.git_info.default_git_server + "modules/gui.git"
-        repo_dev : $PROJECTS.projects.salome.git_info.default_git_server_dev + "gui.git"
+        repo : $PROJECTS.projects.project.git_info.default_git_server + "modules/gui.git"
+        repo_dev : $PROJECTS.projects.project.git_info.default_git_server_dev + "gui.git"
     }
     environ :
     {
@@ -205,8 +205,8 @@ version_python_async :
     get_source : "git"
     git_info:
     {
-        repo : $PROJECTS.projects.salome.git_info.default_git_server + "modules/gui.git"
-        repo_dev : $PROJECTS.projects.salome.git_info.default_git_server_dev + "gui.git"
+        repo : $PROJECTS.projects.project.git_info.default_git_server + "modules/gui.git"
+        repo_dev : $PROJECTS.projects.project.git_info.default_git_server_dev + "gui.git"
     }
     environ :
     {
@@ -249,8 +249,8 @@ version_oscar :
     get_source : "git"
     git_info:
     {
-        repo : $PROJECTS.projects.salome.git_info.default_git_server + "modules/gui.git"
-        repo_dev : $PROJECTS.projects.salome.git_info.default_git_server_dev + "gui.git"
+        repo : $PROJECTS.projects.project.git_info.default_git_server + "modules/gui.git"
+        repo_dev : $PROJECTS.projects.project.git_info.default_git_server_dev + "gui.git"
     }
     environ :
     {
@@ -288,8 +288,8 @@ version_V6_6_0 :
     get_source : "git"
     git_info:
     {
-        repo : $PROJECTS.projects.salome.git_info.default_git_server + "modules/gui.git"
-        repo_dev : $PROJECTS.projects.salome.git_info.default_git_server_dev + "gui.git"
+        repo : $PROJECTS.projects.project.git_info.default_git_server + "modules/gui.git"
+        repo_dev : $PROJECTS.projects.project.git_info.default_git_server_dev + "gui.git"
     }
     environ :
     {

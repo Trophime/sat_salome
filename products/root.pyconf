@@ -7,7 +7,7 @@ default :
     git_info:
     {
         repo : "https://github.com/root-project/root.git"
-        repo_dev : $repo
+        repo_dev : "https://github.com/root-project/root.git"
     }
     environ :
     {

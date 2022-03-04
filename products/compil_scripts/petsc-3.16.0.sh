@@ -7,10 +7,18 @@ echo "##########################################################################
 cp -r $SOURCE_DIR/* .
 
 CONFIGURE_FLAGS=
-CONFIGURE_FLAGS+=" --download-f2cblaslapack=ext/f2cblaslapack-3.4.2.q4.tar.gz"
-CONFIGURE_FLAGS+=" --download-slepc=ext/slepc-3.16.0.tar.gz"
-CONFIGURE_FLAGS+=" --with-hdf5-dir=${HDF5_ROOT_DIR}"
-CONFIGURE_FLAGS+=" --download-metis=ext/metis-5.1.0-p10.tar.gz"
+CONFIGURE_FLAGS+=" --download-f2cblaslapack"
+CONFIGURE_FLAGS+=" --download-slepc"
+
+if [ -n "${HDF5_ROOT_DIR}" ]
+then
+    if [ "${HDF5_ROOT_DIR}" != "/usr" ]
+    then
+       CONFIGURE_FLAGS+=" --with-hdf5-include=${HDF5_INCLUDE_DIRS} --with-hdf5-lib=${HDF5_LIBRARIES}"
+    fi
+fi
+
+# CONFIGURE_FLAGS+=" --download-metis"
 CONFIGURE_FLAGS+=" --with-debugging=0" # by default Petsc is build in debug mode
 CONFIGURE_FLAGS+=" --with-petsc4py=yes"
 CONFIGURE_FLAGS+=" --download-slepc-configure-arguments=--with-slepc4py=yes "
@@ -18,17 +26,17 @@ echo
 if [ -n "${MPI_ROOT_DIR}" ]
 then
   echo "*** configure with mpi"
-  CONFIGURE_FLAGS+=" --download-hypre=ext/hypre-2.20.0.tar.gz"
-  CONFIGURE_FLAGS+=" --download-parms=ext/parms-3.2-p5.tar.gz"
-  CONFIGURE_FLAGS+=" --download-parmetis=ext/parmetis-4.0.3-p6.tar.gz"
-  CONFIGURE_FLAGS+=" --download-ptscotch=ext/scotch_6.1.0.tar.gz"
-  if [ -n "${MPI4PY_ROOT_DIR}" ]
-  then
-      echo "*** mpi4py external dependency detected..."
-      CONFIGURE_FLAGS+=" --with-mpi4py-dir=${MPI4PY_ROOT_DIR}"
-  else
-      CONFIGURE_FLAGS+=" --download-mpi4py=ext/mpi4py-3.0.3.tar.gz"
-  fi
+  CONFIGURE_FLAGS+=" --download-hypre"
+  CONFIGURE_FLAGS+=" --download-parms"
+  CONFIGURE_FLAGS+=" --download-parmetis"
+  CONFIGURE_FLAGS+=" --download-ptscotch"
+  # if [ -n "${MPI4PY_ROOT_DIR}" ]
+  # then
+  #     echo "*** mpi4py external dependency detected..."
+  #     CONFIGURE_FLAGS+=" --with-mpi4py-dir=${MPI4PY_ROOT_DIR}"
+  # else
+  #     CONFIGURE_FLAGS+=" --download-mpi4py"
+  # fi
   ./configure --prefix=${PRODUCT_INSTALL} --with-mpi-dir=${MPI_ROOT_DIR} ${CONFIGURE_FLAGS}
 else
   echo "*** configure without mpi"

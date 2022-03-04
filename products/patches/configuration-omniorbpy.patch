@@ -1,0 +1,22 @@
+diff --git a/cmake/FindOmniORBPy.cmake b/cmake/FindOmniORBPy.cmake
+index 3d7989a..1f7e12f 100644
+--- a/cmake/FindOmniORBPy.cmake
++++ b/cmake/FindOmniORBPy.cmake
+@@ -36,14 +36,16 @@ SET(_py_version "${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}")
+ FIND_PATH(OMNIORB_PYTHON_BACKEND
+   NAMES python.py
+   PATHS "${OMNIORBPY_ROOT_DIR}" "/usr" 
+-  PATH_SUFFIXES "/lib/python${_py_version}/site-packages/omniidl_be" "/lib/omniidl/omniidl_be" "/lib/python/omniidl_be"
++  PATH_SUFFIXES "/lib/python${PYTHON_VERSION_MAJOR}/dist-packages/omniidl_be" "/lib/python${_py_version}/site-packages/omniidl_be" "/lib/omniidl/omniidl_be" "/lib/python/omniidl_be"
+   DOC "Path to python-backend directory (omniidl_be) including python.py file")
++MESSAGE(STATUS "OMNIORB_PYTHON_BACKEND=${OMNIORB_PYTHON_BACKEND}")
+ 
+ FIND_PATH(OMNIORBPY_INCLUDE_DIR
+   NAMES omniORBpy.h
+   PATHS "${OMNIORBPY_ROOT_DIR}" "/usr"
+   PATHS_SUFFIXES "/include"
+   DOC "Path to omniORBpy include directory")
++MESSAGE(STATUS "OMNIORBPY_INCLUDE_DIR=${OMNIORBPY_INCLUDE_DIR}")
+ 
+ ##############################################################################
+ # Cook our stuff

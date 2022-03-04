@@ -3,7 +3,13 @@ default :
     name : "ParaView"
     build_source : "script"
     compil_script :  $name + $VARS.scriptExtension
-    get_source : "archive"
+    get_source : "git"
+    git_info:
+    {
+        repo : "https://gitlab.kitware.com/paraview/paraview.git"
+        repo_dev : $repo
+        submodules : True
+    }
     environ :
     {
        env_script : $name + ".py"

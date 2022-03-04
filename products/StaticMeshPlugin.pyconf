@@ -6,7 +6,13 @@
     name : 'StaticMeshPlugin'
     build_source : 'cmake'
     cmake_options : ''
-    get_source : "archive"
+    get_source : "git"
+    git_info:
+    {
+        repo : "https://gitlab.kitware.com/paraview/staticmeshplugin.git"
+        repo_dev : $repo
+        submodules : True
+    }
     patches: []
     environ :
     {

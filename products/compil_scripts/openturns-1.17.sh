@@ -1,7 +1,7 @@
 #!/bin/bash                                                                                                                                                                              
 
 echo "##########################################################################"
-echo "openturns" $VERSION
+echo "openturns" $VERSION "source_dir=" $SOURCE_DIR
 echo "##########################################################################"
 
 # we don't install in python directory -> modify environment as described in INSTALL file
@@ -86,7 +86,7 @@ echo
 echo "*** cmake" $CMAKE_OPTIONS
 mkdir -p $BUILD_DIR/openturns
 cd  $BUILD_DIR/openturns
-cmake $CMAKE_OPTIONS $SOURCE_DIR/openturns-1.17
+cmake $CMAKE_OPTIONS $SOURCE_DIR
 if [ $? -ne 0 ]
 then
     echo "ERROR on cmake"
@@ -122,8 +122,8 @@ fi
 
 export PYTHONPATH=${PRODUCT_INSTALL}/lib/python${PYTHON_VERSION}/site-packages:${PYTHONPATH}
 export LD_LIBRARY_PATH=${PRODUCT_INSTALL}/lib:${LD_LIBRARY_PATH}
-chmod +x ${SOURCE_DIR}/openturns-1.17/python/test/t_features.py
-${SOURCE_DIR}/openturns-1.17/python/test/t_features.py
+chmod +x ${SOURCE_DIR}/python/test/t_features.py
+${SOURCE_DIR}/python/test/t_features.py
 if [ $? -ne 0 ]
 then
     echo "ERROR  testing Openturns features...."
@@ -213,36 +213,36 @@ if [[ -d "$SOURCE_DIR/otfftw-0.11" ]]; then
 	if [[ ! $APPLICATION_NAME =~ native ]]; then
             if [[ $k == "otfmi" ]]; then
 		echo "INFO: install dill-0.3.4"
-		${PYTHONBIN} -m pip install $SOURCE_DIR/dill-0.3.4/dill-0.3.4-py2.py3-none-any.whl --no-deps
+		sudo ${PYTHONBIN} -m pip install dill==0.3.4 --no-deps
 		if [ $? -ne 0 ]
 		then
-		    echo "FATAL: could not install dikk-0.3.4"
+		    echo "FATAL: could not install dill-0.3.4"
 		    exit 5
 		fi
 	    elif [[ $k == "otpod" ]]; then
 		echo "INFO: install threadpoolctl-3.0.0"
-		${PYTHONBIN} -m pip install $SOURCE_DIR/threadpoolctl-3.0.0/threadpoolctl-3.0.0-py3-none-any.whl --no-deps
+		sudo ${PYTHONBIN} -m pip install threadpoolctl==3.0.0 --no-deps
 		if [ $? -ne 0 ]
 		then
 		    echo "FATAL: could not install readpoolctl 3.0.0"
 		    exit 6
 		fi
 		echo "INFO: install joblib-1.1.0"
-		${PYTHONBIN} -m pip install $SOURCE_DIR/joblib-1.1.0/joblib-1.1.0-py2.py3-none-any.whl --no-deps
+		sudo ${PYTHONBIN} -m pip install joblib==1.1.0 --no-deps
 		if [ $? -ne 0 ]
 		then
 		    echo "FATAL: could not install joblib-1.1.0"
 		    exit 6
 		fi
 		echo "INFO: install decorator-5.1.0"
-		${PYTHONBIN} -m pip install $SOURCE_DIR/decorator-5.1.0/decorator-5.1.0-py3-none-any.whl --no-deps
+		sudo ${PYTHONBIN} -m pip install decorator==5.1.0 --no-deps
 		if [ $? -ne 0 ]
 		then
 		    echo "FATAL: could not install decorator-5.1.0"
 		    exit 6
 		fi
 		echo "INFO: install scikit-learn-0.24.2"
-		${PYTHONBIN} -m pip install $SOURCE_DIR/scikit-learn-0.24.2/scikit-learn-0.24.2.tar.gz --no-deps
+		sudo ${PYTHONBIN} -m pip install scikit-learn==0.24.2 --no-deps
 		if [ $? -ne 0 ]
 		then
 		    echo "FATAL: could not install scikit-0.24.2"

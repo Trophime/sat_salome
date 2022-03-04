@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "##########################################################################"
-echo "opencv" $VERSION
+echo "opencv" $VERSION "python=${PYTHONBIN}" "numpy=${NUMPY_INCLUDE_DIR};${NUMPY_INCLUDE_DIR2}"
 echo "##########################################################################"
 
 function version_ge() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" == "$1"; }
